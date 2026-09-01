@@ -1,0 +1,2685 @@
+<title>Capitol 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+
+<style>
+/* ============================================================
+   CAPITOL 6 — 805 Yates Street, Victoria BC
+   A single committed visual world: the house with the lights down.
+   Every colour is painted explicitly so the page holds on any ground.
+   ============================================================ */
+
+:root{
+  color-scheme: dark;
+
+  /* Grounds — warm, brown-biased neutrals. Not grey. */
+  --stage:      #0B0A09;
+  --house:      #131110;
+  --riser:      #1C1917;
+  --riser-hi:   #262220;
+  --edge:       rgba(242,237,228,.11);
+  --edge-soft:  rgba(242,237,228,.06);
+  --edge-hard:  rgba(242,237,228,.20);
+
+  /* Text */
+  --bone:       #F2EDE4;
+  --dust:       #9A9188;
+  --dust-dim:   #6B6560;
+
+  /* The lamp — the only accent. Emitted, not applied. */
+  --lamp:       #E9B44C;
+  --lamp-hi:    #FFD489;
+  --lamp-deep:  #B8862B;
+  --lamp-ink:   #241B0B;
+
+  /* Semantic — separate from the accent */
+  --access:     #6FA8DC;
+  --good:       #86B87F;
+  --warn:       #E07A5F;
+  --taken:      #322D2A;
+
+  /* Type */
+  --f-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --f-ui: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Scale */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+
+  --wrap: 1180px;
+  --rad: 3px;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  background: var(--stage);
+  color: var(--bone);
+  font-family: var(--f-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient: a faint warm bloom at the top of the page, like spill from a marquee */
+body::before{
+  content:"";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(1100px 420px at 50% -12%, rgba(233,180,76,.075), transparent 62%),
+    radial-gradient(700px 500px at 100% 0%, rgba(233,180,76,.035), transparent 60%);
+}
+
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, select, textarea{ font: inherit; color: inherit; }
+img{ max-width: 100%; }
+
+:focus-visible{
+  outline: 2px solid var(--lamp);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.wrap{ max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s5); position: relative; z-index: 1; }
+.wrap-tight{ max-width: 840px; margin: 0 auto; padding: 0 var(--s5); position: relative; z-index: 1; }
+
+/* ---------- Type primitives ---------- */
+.eyebrow{
+  font-size: 10.5px; font-weight: 600; letter-spacing: .19em;
+  text-transform: uppercase; color: var(--dust); margin: 0;
+}
+.eyebrow-lamp{ color: var(--lamp); }
+.serif{ font-family: var(--f-display); font-weight: 400; letter-spacing: -.005em; }
+.mono{ font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+h1,h2,h3,h4{ margin: 0; text-wrap: balance; font-weight: 600; }
+p{ margin: 0; }
+.lede{ color: var(--dust); font-size: 16.5px; line-height: 1.65; max-width: 62ch; }
+.small{ font-size: 13px; color: var(--dust); }
+.xsmall{ font-size: 11.5px; color: var(--dust-dim); }
+.stack{ display: flex; flex-direction: column; }
+.row-f{ display: flex; align-items: center; }
+
+/* ============================================================
+   LOGO — the 6 as a projector aperture
+   ============================================================ */
+.lockup{ display: inline-flex; align-items: center; gap: 11px; }
+.lockup svg{ display: block; overflow: visible; }
+.lockup .word{
+  font-family: var(--f-ui);
+  font-weight: 600;
+  letter-spacing: .225em;
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 1;
+  padding-left: 1px;
+  color: var(--bone);
+}
+.mark-ring{ stroke: var(--bone); }
+.mark-beam{ stroke: var(--lamp); }
+.mark-lamp{ fill: var(--lamp); }
+.lockup:hover .mark-beam{ stroke: var(--lamp-hi); }
+.lockup:hover .mark-lamp{ fill: var(--lamp-hi); }
+.mark-beam, .mark-lamp{ transition: stroke .3s, fill .3s; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.chrome{
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(11,10,9,.86);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid var(--edge-soft);
+}
+.chrome-in{
+  max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s5);
+  height: 66px; display: flex; align-items: center; gap: var(--s6);
+}
+.nav{ display: flex; align-items: center; gap: 26px; margin-left: auto; }
+.nav a{
+  font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--dust); padding: 6px 0; position: relative; transition: color .2s;
+}
+.nav a::after{
+  content:""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px;
+  background: var(--lamp); transition: right .28s cubic-bezier(.2,.7,.3,1);
+}
+.nav a:hover{ color: var(--bone); }
+.nav a:hover::after, .nav a.on::after{ right: 0; }
+.nav a.on{ color: var(--bone); }
+
+.btn-tix{
+  font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: 9px 17px; border-radius: var(--rad);
+  color: var(--lamp-ink);
+  background: linear-gradient(180deg, var(--lamp-hi), var(--lamp));
+  box-shadow: 0 0 0 1px var(--lamp-deep), 0 6px 22px -8px rgba(233,180,76,.7);
+  transition: transform .16s, box-shadow .22s, filter .2s;
+  white-space: nowrap;
+}
+.btn-tix:hover{ transform: translateY(-1px); box-shadow: 0 0 0 1px var(--lamp), 0 10px 26px -8px rgba(233,180,76,.85); filter: brightness(1.04); }
+.btn-tix:active{ transform: translateY(0); }
+
+.burger{ display: none; margin-left: auto; padding: 8px; }
+.burger span{ display: block; width: 20px; height: 1.5px; background: var(--bone); margin: 4px 0; transition: transform .25s, opacity .2s; }
+.mobnav{ display: none; border-top: 1px solid var(--edge-soft); background: var(--house); padding: var(--s3) var(--s5) var(--s5); }
+.mobnav.open{ display: block; }
+.mobnav a{ display: block; padding: 12px 0; font-size: 13px; letter-spacing: .09em; text-transform: uppercase; color: var(--dust); border-bottom: 1px solid var(--edge-soft); }
+.mobnav a:last-child{ border-bottom: 0; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 12px 22px; border-radius: var(--rad);
+  font-size: 12.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--edge-hard); color: var(--bone);
+  background: var(--riser);
+  transition: background .2s, border-color .2s, transform .14s, color .2s;
+}
+.btn:hover{ background: var(--riser-hi); border-color: var(--edge-hard); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn-lamp{
+  border-color: transparent; color: var(--lamp-ink);
+  background: linear-gradient(180deg, var(--lamp-hi), var(--lamp));
+  box-shadow: 0 0 0 1px var(--lamp-deep), 0 8px 26px -10px rgba(233,180,76,.75);
+}
+.btn-lamp:hover{ background: linear-gradient(180deg, #FFDF9F, var(--lamp-hi)); box-shadow: 0 0 0 1px var(--lamp), 0 12px 30px -10px rgba(233,180,76,.9); }
+.btn-ghost{ background: transparent; border-color: var(--edge); color: var(--dust); }
+.btn-ghost:hover{ color: var(--bone); border-color: var(--edge-hard); background: rgba(242,237,228,.03); }
+.btn-lg{ padding: 15px 30px; font-size: 13px; }
+.btn:disabled{ opacity: .34; cursor: not-allowed; transform: none; }
+.btn-block{ width: 100%; }
+
+/* ============================================================
+   KEY ART — designed title plates, not photographs
+   Each film gets a duotone field, a geometric figure and grain.
+   ============================================================ */
+.art{
+  position: relative; overflow: hidden;
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(158deg, var(--a) 0%, var(--b) 100%);
+  border-radius: var(--rad);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  isolation: isolate;
+}
+.art::after{ /* grain + vignette */
+  content:""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 0%, transparent 40%, rgba(0,0,0,.42) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.024) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+.fig{ position: absolute; inset: 0; z-index: 1; opacity: 1; }
+
+/* figures */
+.fig-rings{ background:
+  radial-gradient(circle at 50% 42%, transparent 0 14%, rgba(255,255,255,.15) 14% 14.6%, transparent 14.6%),
+  radial-gradient(circle at 50% 42%, transparent 0 26%, rgba(255,255,255,.13) 26% 26.5%, transparent 26.5%),
+  radial-gradient(circle at 50% 42%, transparent 0 39%, rgba(255,255,255,.10) 39% 39.4%, transparent 39.4%),
+  radial-gradient(circle at 50% 42%, transparent 0 53%, rgba(255,255,255,.07) 53% 53.4%, transparent 53.4%); }
+.fig-wave{ background:
+  radial-gradient(140% 62% at 50% 108%, rgba(255,255,255,.20), transparent 62%),
+  repeating-linear-gradient(184deg, rgba(255,255,255,.09) 0 1px, transparent 1px 15px); }
+.fig-orb{ background:
+  radial-gradient(circle at 50% 38%, rgba(255,255,255,.34), rgba(255,255,255,.06) 26%, transparent 46%),
+  radial-gradient(circle at 50% 38%, transparent 0 33%, rgba(255,255,255,.12) 33% 33.5%, transparent 33.5%); }
+.fig-band{ background:
+  linear-gradient(0deg, transparent 0 26%, rgba(255,255,255,.15) 26% 27%, transparent 27% 34%, rgba(255,255,255,.10) 34% 34.6%, transparent 34.6%),
+  radial-gradient(90% 44% at 50% 30%, rgba(255,255,255,.22), transparent 70%); }
+.fig-split{ background:
+  linear-gradient(90deg, transparent 0 47.4%, rgba(255,255,255,.30) 47.4% 48.2%, rgba(0,0,0,.34) 48.2% 51.8%, rgba(255,255,255,.30) 51.8% 52.6%, transparent 52.6%),
+  radial-gradient(60% 70% at 50% 44%, rgba(255,255,255,.13), transparent 72%); }
+.fig-perf{ background:
+  repeating-linear-gradient(90deg, transparent 0 12px, rgba(255,255,255,.10) 12px 20px, transparent 20px 34px),
+  linear-gradient(0deg, transparent 0 18%, rgba(0,0,0,.22) 18% 82%, transparent 82%); }
+.fig-grid{ background:
+  repeating-linear-gradient(0deg, rgba(255,255,255,.085) 0 1px, transparent 1px 22px),
+  repeating-linear-gradient(90deg, rgba(255,255,255,.085) 0 1px, transparent 1px 22px),
+  radial-gradient(70% 50% at 50% 34%, rgba(255,255,255,.14), transparent 74%); }
+.fig-arc{ background:
+  radial-gradient(120% 78% at 50% 118%, transparent 0 52%, rgba(255,255,255,.20) 52% 53.2%, transparent 53.2% 66%, rgba(255,255,255,.12) 66% 67%, transparent 67%),
+  radial-gradient(80% 46% at 50% 26%, rgba(255,255,255,.16), transparent 72%); }
+.fig-beam{ background:
+  conic-gradient(from 198deg at 50% -6%, transparent 0deg, rgba(255,255,255,.20) 12deg, transparent 26deg, transparent 334deg, rgba(255,255,255,.13) 348deg, transparent 360deg),
+  radial-gradient(60% 40% at 50% 0%, rgba(255,255,255,.24), transparent 70%); }
+.fig-halo{ background:
+  radial-gradient(circle at 50% 30%, rgba(255,255,255,.30) 0 8%, transparent 8.4%),
+  radial-gradient(circle at 50% 30%, transparent 0 20%, rgba(255,255,255,.16) 20% 21%, transparent 21%),
+  linear-gradient(0deg, rgba(0,0,0,.30), transparent 55%); }
+
+.art-title{
+  position: relative; z-index: 2;
+  font-family: var(--f-display); font-size: 26px; line-height: 1.03;
+  padding: var(--s5) var(--s4) var(--s4);
+  color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.65);
+  letter-spacing: -.01em;
+}
+/* In the grid the plate sits above a caption, so its title reads as poster
+   typography rather than competing with the film name below it. */
+.card .art-title{ font-size: 19px; padding: var(--s5) var(--s3) var(--s3); }
+.art-photo img{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.art-tag{
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+  padding: 4px 7px; border-radius: 2px; color: var(--lamp-ink);
+  background: rgba(233,180,76,.94); backdrop-filter: blur(4px);
+}
+.logo-img{ display: block; width: auto; }
+
+.art-title small{
+  display: block; font-family: var(--f-ui); font-size: 9.5px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase; opacity: .72; margin-bottom: 7px;
+  text-shadow: none;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ padding: var(--s8) 0 var(--s6); position: relative; }
+.hero-grid{ display: grid; grid-template-columns: 1.25fr .75fr; gap: var(--s8); align-items: center; }
+.hero h1{
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(48px, 7.4vw, 92px); line-height: .95; letter-spacing: -.025em;
+  margin: var(--s4) 0 var(--s5);
+}
+.hero h1 em{ font-style: italic; color: var(--lamp); }
+.hero-meta{ display: flex; flex-wrap: wrap; gap: var(--s4); align-items: center; margin-bottom: var(--s5); }
+.hero-art{ max-width: 330px; margin-left: auto; box-shadow: 0 40px 80px -30px rgba(0,0,0,.9), 0 0 0 1px var(--edge); }
+.hero-cta{ display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+
+.pill{
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  padding: 5px 9px; border: 1px solid var(--edge); border-radius: 2px; color: var(--dust);
+}
+.pill-lamp{ color: var(--lamp); border-color: rgba(233,180,76,.4); background: rgba(233,180,76,.07); }
+.pill-good{ color: var(--good); border-color: rgba(134,184,127,.35); background: rgba(134,184,127,.07); }
+.pill-warn{ color: var(--warn); border-color: rgba(224,122,95,.35); background: rgba(224,122,95,.07); }
+.dot{ width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.sec{ padding: var(--s8) 0; }
+.sec-head{
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: var(--s5); padding-bottom: var(--s5); margin-bottom: var(--s6);
+  border-bottom: 1px solid var(--edge-soft);
+}
+.sec-head h2{
+  font-family: var(--f-display); font-weight: 400; letter-spacing: -.02em;
+  font-size: clamp(28px, 3.6vw, 40px); line-height: 1.05; margin-top: 6px;
+}
+.sec-head a{ font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--lamp); white-space: nowrap; }
+.sec-head a:hover{ color: var(--lamp-hi); }
+
+/* ============================================================
+   DATE STRIP
+   ============================================================ */
+.datestrip{ display: flex; gap: var(--s2); overflow-x: auto; padding-bottom: var(--s2); scrollbar-width: thin; }
+.datechip{
+  flex: 0 0 auto; min-width: 82px; padding: 11px 14px 12px;
+  border: 1px solid var(--edge); border-radius: var(--rad);
+  background: var(--house); text-align: center; position: relative;
+  transition: border-color .2s, background .2s, transform .14s;
+}
+.datechip:hover{ border-color: var(--edge-hard); background: var(--riser); }
+.datechip.on{ border-color: var(--lamp); background: rgba(233,180,76,.09); }
+.datechip .dow{ font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--dust); }
+.datechip.on .dow{ color: var(--lamp); }
+.datechip .dnum{ font-family: var(--f-mono); font-size: 21px; line-height: 1.25; }
+.datechip .deal{
+  display: block; font-family: var(--f-mono); font-size: 9px; letter-spacing: .04em;
+  color: var(--lamp); margin-top: 1px;
+}
+
+/* ============================================================
+   FILM GRID + CARDS
+   ============================================================ */
+.filmgrid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(216px, 1fr)); gap: var(--s6) var(--s5); }
+.card{ display: flex; flex-direction: column; gap: var(--s3); }
+.card .art{ box-shadow: 0 0 0 1px var(--edge-soft); transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s; }
+.card:hover .art{ transform: translateY(-4px); box-shadow: 0 0 0 1px var(--edge-hard), 0 24px 44px -22px rgba(0,0,0,.95); }
+.card h3{ font-size: 15px; font-weight: 600; line-height: 1.25; letter-spacing: -.005em; }
+.card .cmeta{ display: flex; flex-wrap: wrap; gap: 7px; align-items: center; font-size: 11.5px; color: var(--dust-dim); font-family: var(--f-mono); }
+.rat{
+  display: inline-block; font-family: var(--f-mono); font-size: 10px; letter-spacing: .03em;
+  padding: 1px 5px; border: 1px solid var(--edge); border-radius: 2px; color: var(--dust);
+}
+
+/* showtime chips inline on the card — the shortcut to seats */
+.times{ display: flex; flex-wrap: wrap; gap: 5px; }
+.time{
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .01em;
+  padding: 6px 9px; border: 1px solid var(--edge); border-radius: 2px;
+  background: var(--house); color: var(--bone); position: relative;
+  transition: border-color .18s, background .18s, color .18s, transform .12s;
+}
+.time:hover{ border-color: var(--lamp); background: rgba(233,180,76,.10); color: var(--lamp-hi); transform: translateY(-1px); }
+.time.thin{ color: var(--warn); border-color: rgba(224,122,95,.3); }
+.time.thin:hover{ color: var(--lamp-hi); }
+.time.gone{ color: var(--dust-dim); border-color: var(--edge-soft); background: transparent; text-decoration: line-through; cursor: not-allowed; }
+.time.gone:hover{ transform: none; border-color: var(--edge-soft); background: transparent; color: var(--dust-dim); }
+.time-more{ font-family: var(--f-ui); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--lamp); padding: 6px 4px; }
+
+/* ============================================================
+   FILM DETAIL
+   ============================================================ */
+.detail{ padding: var(--s7) 0 var(--s8); }
+.detail-grid{ display: grid; grid-template-columns: 300px 1fr; gap: var(--s8); align-items: start; }
+.detail h1{
+  font-family: var(--f-display); font-weight: 400; letter-spacing: -.025em;
+  font-size: clamp(38px, 5.4vw, 66px); line-height: .98; margin: 10px 0 var(--s4);
+}
+.detail-meta{ display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; margin-bottom: var(--s5); font-family: var(--f-mono); font-size: 12.5px; color: var(--dust); }
+.crew{ display: grid; grid-template-columns: 92px 1fr; gap: 8px var(--s4); font-size: 13.5px; margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--edge-soft); }
+.crew dt{ font-size: 10.5px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--dust-dim); padding-top: 3px; }
+.crew dd{ margin: 0; color: var(--bone); }
+
+.showblock{ border-top: 1px solid var(--edge-soft); padding-top: var(--s5); margin-top: var(--s6); }
+.showblock-head{ display: flex; align-items: baseline; gap: var(--s3); margin-bottom: var(--s4); }
+.showblock-head h4{ font-size: 12px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+.showrow{ display: flex; flex-wrap: wrap; gap: 7px; }
+.showcard{
+  min-width: 104px; padding: 11px 13px; border: 1px solid var(--edge); border-radius: var(--rad);
+  background: var(--house); text-align: left; transition: border-color .2s, background .2s, transform .14s;
+}
+.showcard:hover{ border-color: var(--lamp); background: rgba(233,180,76,.08); transform: translateY(-2px); }
+.showcard .st{ font-family: var(--f-mono); font-size: 16px; line-height: 1.2; }
+.showcard .sh{ font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--dust-dim); margin-top: 3px; }
+.showcard .sl{ font-family: var(--f-mono); font-size: 10.5px; margin-top: 5px; }
+.showcard:disabled{ opacity: .35; cursor: not-allowed; }
+.showcard:disabled:hover{ transform: none; border-color: var(--edge); background: var(--house); }
+
+/* ============================================================
+   BOOKING — the room changes. Site chrome out, booking bar in.
+   ============================================================ */
+.bookbar{
+  position: sticky; top: 0; z-index: 70;
+  background: rgba(8,7,6,.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--edge-soft);
+}
+.bookbar-in{ max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s5); height: 68px; display: flex; align-items: center; gap: var(--s5); }
+.bb-back{ display: inline-flex; align-items: center; gap: 7px; font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--dust); transition: color .2s; }
+.bb-back:hover{ color: var(--bone); }
+.bb-title{ min-width: 0; }
+.bb-title .t{ font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bb-title .s{ font-family: var(--f-mono); font-size: 11.5px; color: var(--dust); }
+
+.steps{ display: flex; align-items: center; gap: var(--s2); margin-left: auto; }
+.step{ display: flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .11em; text-transform: uppercase; color: var(--dust-dim); }
+.step i{
+  width: 19px; height: 19px; border-radius: 50%; border: 1px solid var(--edge);
+  display: grid; place-items: center; font-family: var(--f-mono); font-size: 10px; font-style: normal;
+  transition: background .25s, border-color .25s, color .25s;
+}
+.step.on{ color: var(--bone); }
+.step.on i{ background: var(--lamp); border-color: var(--lamp); color: var(--lamp-ink); }
+.step.done{ color: var(--dust); }
+.step.done i{ border-color: var(--lamp-deep); color: var(--lamp); }
+.step-sep{ width: 18px; height: 1px; background: var(--edge); }
+
+.hold{
+  display: flex; align-items: center; gap: 7px; padding: 6px 11px;
+  border: 1px solid var(--edge); border-radius: var(--rad);
+  font-family: var(--f-mono); font-size: 12.5px; color: var(--dust); white-space: nowrap;
+}
+.hold.urgent{ border-color: rgba(224,122,95,.5); color: var(--warn); }
+.hold .pulse{ width: 5px; height: 5px; border-radius: 50%; background: var(--good); animation: pulse 2.2s ease-in-out infinite; }
+.hold.urgent .pulse{ background: var(--warn); animation-duration: .9s; }
+@keyframes pulse{ 0%,100%{ opacity: 1; } 50%{ opacity: .25; } }
+
+.booking{ background: #070605; min-height: calc(100vh - 68px); padding-bottom: var(--s9); }
+.book-grid{ display: grid; grid-template-columns: 1fr 348px; gap: var(--s7); align-items: start; padding-top: var(--s6); }
+/* grid items default to min-width:auto, which would let the seat map's own
+   scroller push the whole page sideways. It must never do that. */
+.book-grid > *, .hero-grid > *, .detail-grid > *, .visitgrid > *{ min-width: 0; }
+
+/* ============================================================
+   THE HALL — arced rows under a lit screen
+   ============================================================ */
+.hall{
+  position: relative; padding: var(--s8) var(--s4) var(--s6);
+  border: 1px solid var(--edge-soft); border-radius: var(--rad);
+  background: linear-gradient(180deg, #0E0C0B 0%, #080706 100%);
+  overflow-x: auto; overflow-y: hidden;
+}
+.screen{
+  position: relative; z-index: 2;
+  width: min(78%, 560px); height: 12px; margin: 0 auto var(--s3);
+  background: linear-gradient(180deg, var(--lamp-hi), rgba(233,180,76,.35));
+  clip-path: polygon(3.5% 0%, 96.5% 0%, 100% 100%, 0% 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 34px 6px rgba(233,180,76,.34);
+}
+.screen-lbl{
+  position: relative; z-index: 2; text-align: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .42em; text-transform: uppercase;
+  color: rgba(233,180,76,.6); margin-bottom: var(--s7);
+  text-indent: .42em;
+}
+.spill{ /* light thrown from the screen onto the front rows */
+  position: absolute; z-index: 0; left: 50%; top: 52px; transform: translateX(-50%);
+  width: 150%; height: 460px; pointer-events: none;
+  background:
+    radial-gradient(46% 100% at 50% 0%, rgba(233,180,76,.20), rgba(233,180,76,.07) 42%, transparent 74%),
+    radial-gradient(90% 70% at 50% 0%, rgba(233,180,76,.07), transparent 68%);
+}
+
+/* padding-bottom absorbs the arc's translateY so the back rows are never clipped */
+/* .house is the auditorium's true width; the screen and the light spill size
+   against it, so they stay centred over the seating however narrow the viewport. */
+.house{ position: relative; min-width: max-content; }
+.rows{ position: relative; z-index: 2; display: flex; flex-direction: column; gap: 13px; padding: 0 var(--s5) 30px; }
+.seatrow{ display: flex; align-items: center; justify-content: center; gap: var(--s3); }
+.rowlbl{
+  width: 18px; flex: 0 0 18px; text-align: center;
+  font-family: var(--f-mono); font-size: 11px; color: var(--dust-dim);
+}
+.blk{ display: flex; gap: 5px; }
+.aisle{ width: 36px; flex: 0 0 36px; }
+
+.seat{
+  position: relative;
+  width: 24px; height: 22px; flex: 0 0 24px;
+  border-radius: 7px 7px 3px 3px;
+  background: #2E2825;
+  box-shadow: inset 0 0 0 1px rgba(242,237,228,.11);
+  transition: background .18s, box-shadow .18s, transform .16s cubic-bezier(.2,.7,.3,1);
+  will-change: transform;
+}
+.seat::before{ /* headrest */
+  content:""; position: absolute; left: 4px; right: 4px; top: 3px; height: 2px;
+  border-radius: 1px; background: rgba(242,237,228,.16); transition: background .18s;
+}
+.seat:hover:not(.sold){ background: #453D38; transform: translateY(var(--ty)) rotate(var(--rot)) scale(1.18); z-index: 5; }
+.seat.sold{ background: var(--taken); box-shadow: none; cursor: not-allowed; opacity: .5; }
+.seat.sold::before{ background: rgba(242,237,228,.045); }
+
+.seat.pick{
+  background: linear-gradient(180deg, var(--lamp-hi), var(--lamp));
+  box-shadow: inset 0 0 0 1px var(--lamp-hi), 0 0 16px 2px rgba(233,180,76,.5);
+  z-index: 4;
+}
+.seat.pick::before{ background: rgba(36,27,11,.42); }
+
+.seat.wc{ background: #22303C; box-shadow: inset 0 0 0 1px rgba(111,168,220,.45); border-radius: 4px; }
+.seat.wc::before{ background: rgba(111,168,220,.55); }
+.seat.wc.pick{ background: linear-gradient(180deg, var(--lamp-hi), var(--lamp)); box-shadow: inset 0 0 0 1px var(--lamp-hi), 0 0 16px 2px rgba(233,180,76,.5); }
+
+/* loveseats — joined pairs, no centre armrest */
+.seat.loveL{ border-radius: 7px 2px 3px 3px; margin-right: -5px; width: 27px; flex-basis: 27px; }
+.seat.loveR{ border-radius: 2px 7px 3px 3px; width: 27px; flex-basis: 27px; }
+
+/* the prime band — genuinely useful, drawn as light not decoration */
+.seatrow.prime{ position: relative; }
+.seatrow.prime::before{
+  content:""; position: absolute; left: 28px; right: 28px; top: -6px; bottom: -6px;
+  background: radial-gradient(60% 130% at 50% 50%, rgba(233,180,76,.075), transparent 78%);
+  border-radius: 999px; pointer-events: none; z-index: 0;
+}
+
+.tip{
+  position: fixed; z-index: 90; pointer-events: none;
+  padding: 8px 11px; border-radius: var(--rad);
+  background: #16130F; border: 1px solid var(--lamp-deep);
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,.9);
+  font-size: 12px; line-height: 1.45; white-space: nowrap;
+  opacity: 0; transform: translate(-50%, -122%) translateY(4px); transition: opacity .14s, transform .14s;
+}
+.tip.show{ opacity: 1; transform: translate(-50%, -122%); }
+.tip .tt{ font-family: var(--f-mono); color: var(--lamp); }
+.tip .tb{ color: var(--dust); font-size: 11px; }
+
+#toast.toast{
+  position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+  z-index: 200; background: #16130F; border: 1px solid var(--lamp-deep);
+  border-radius: var(--rad); padding: 13px 18px; font-size: 13.5px;
+  max-width: min(440px, 90vw); box-shadow: 0 20px 46px -18px rgba(0,0,0,.95);
+  opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none;
+}
+#toast.toast.show{ opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+.legend{ display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: center; padding: var(--s6) var(--s4) var(--s2); }
+.leg{ display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--dust); }
+.leg i{ width: 17px; height: 15px; border-radius: 5px 5px 2px 2px; display: block; }
+.leg i.av{ background: #2A2523; box-shadow: inset 0 0 0 1px rgba(242,237,228,.09); }
+.leg i.pk{ background: var(--lamp); box-shadow: 0 0 10px 1px rgba(233,180,76,.5); }
+.leg i.sd{ background: var(--taken); opacity: .6; }
+.leg i.ac{ background: #22303C; box-shadow: inset 0 0 0 1px rgba(111,168,220,.45); border-radius: 3px; }
+.leg i.lv{ background: #2A2523; box-shadow: inset 0 0 0 1px rgba(242,237,228,.09); width: 26px; border-radius: 5px; }
+.leg i.pr{ background: rgba(233,180,76,.16); box-shadow: inset 0 0 0 1px rgba(233,180,76,.3); border-radius: 3px; }
+
+/* party picker */
+.partybar{
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4);
+  padding: var(--s4) 0 var(--s5); border-bottom: 1px solid var(--edge-soft); margin-bottom: var(--s5);
+}
+.stepper{ display: inline-flex; align-items: center; border: 1px solid var(--edge); border-radius: var(--rad); overflow: hidden; }
+.stepper button{ width: 34px; height: 34px; display: grid; place-items: center; color: var(--dust); transition: background .18s, color .18s; }
+.stepper button:hover:not(:disabled){ background: var(--riser); color: var(--bone); }
+.stepper button:disabled{ opacity: .3; cursor: not-allowed; }
+.stepper .val{ min-width: 40px; text-align: center; font-family: var(--f-mono); font-size: 15px; border-left: 1px solid var(--edge); border-right: 1px solid var(--edge); height: 34px; display: grid; place-items: center; }
+
+/* ============================================================
+   SIDE RAIL (order summary)
+   ============================================================ */
+.rail{ position: sticky; top: 90px; border: 1px solid var(--edge); border-radius: var(--rad); background: var(--house); }
+.rail-head{ padding: var(--s4) var(--s5); border-bottom: 1px solid var(--edge-soft); }
+.rail-head .t{ font-size: 14px; font-weight: 600; line-height: 1.3; }
+.rail-head .s{ font-family: var(--f-mono); font-size: 11.5px; color: var(--dust); margin-top: 3px; }
+.rail-body{ padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4); }
+.rail-foot{ padding: var(--s4) var(--s5) var(--s5); border-top: 1px solid var(--edge-soft); }
+
+.li{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); font-size: 13.5px; }
+.li .n{ color: var(--dust); }
+.li .v{ font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.li.total{ font-size: 17px; padding-top: var(--s4); border-top: 1px solid var(--edge-soft); }
+.li.total .n{ color: var(--bone); font-weight: 600; }
+.li.total .v{ color: var(--lamp); font-size: 21px; }
+.li.credit .v{ color: var(--good); }
+
+.seatchip{
+  display: flex; align-items: center; gap: var(--s3); padding: 10px 12px;
+  border: 1px solid var(--edge-soft); border-radius: var(--rad); background: var(--riser);
+}
+.seatchip .sid{ font-family: var(--f-mono); font-size: 13px; min-width: 44px; }
+.seatchip select{
+  margin-left: auto; background: var(--house); border: 1px solid var(--edge);
+  border-radius: 2px; padding: 5px 7px; font-size: 12px; cursor: pointer;
+}
+.seatchip .px{ font-family: var(--f-mono); font-size: 13px; min-width: 52px; text-align: right; }
+.seatchip .rm{ color: var(--dust-dim); padding: 2px 4px; font-size: 15px; line-height: 1; transition: color .2s; }
+.seatchip .rm:hover{ color: var(--warn); }
+
+.ruleflag{
+  font-family: var(--f-mono); font-size: 11px; color: var(--good);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.empty{ text-align: center; padding: var(--s6) var(--s4); color: var(--dust-dim); font-size: 13px; line-height: 1.6; }
+
+/* ============================================================
+   CONCESSIONS
+   ============================================================ */
+.conc-grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: var(--s4); }
+.conc{
+  border: 1px solid var(--edge); border-radius: var(--rad); background: var(--house);
+  padding: var(--s4); display: flex; flex-direction: column; gap: var(--s3);
+  transition: border-color .2s, background .2s;
+}
+.conc.has{ border-color: var(--lamp-deep); background: rgba(233,180,76,.05); }
+.conc-top{ display: flex; justify-content: space-between; gap: var(--s3); align-items: flex-start; }
+.conc h4{ font-size: 14px; font-weight: 600; line-height: 1.3; }
+.conc .cp{ font-family: var(--f-mono); font-size: 14px; color: var(--lamp); white-space: nowrap; }
+.conc .cd{ font-size: 12px; color: var(--dust); line-height: 1.5; flex: 1; }
+.conc .cf{ display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-top: auto; }
+
+.toggle{ display: flex; align-items: center; gap: var(--s3); padding: var(--s4); border: 1px solid var(--edge); border-radius: var(--rad); background: var(--house); cursor: pointer; transition: border-color .2s, background .2s; }
+.toggle.on{ border-color: var(--lamp-deep); background: rgba(233,180,76,.05); }
+.toggle .sw{ width: 38px; height: 22px; border-radius: 11px; background: var(--riser-hi); box-shadow: inset 0 0 0 1px var(--edge); position: relative; flex: 0 0 38px; transition: background .22s; }
+.toggle.on .sw{ background: var(--lamp); box-shadow: inset 0 0 0 1px var(--lamp-deep); }
+.toggle .sw::after{ content:""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--bone); transition: transform .22s cubic-bezier(.2,.7,.3,1); }
+.toggle.on .sw::after{ transform: translateX(16px); background: var(--lamp-ink); }
+.toggle .tl{ font-size: 13.5px; font-weight: 500; }
+.toggle .td{ font-size: 12px; color: var(--dust); }
+
+/* ============================================================
+   FORMS / CHECKOUT
+   ============================================================ */
+.field{ display: flex; flex-direction: column; gap: 7px; }
+.field label{ font-size: 10.5px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--dust); }
+.field input, .field select{
+  background: var(--stage); border: 1px solid var(--edge); border-radius: var(--rad);
+  padding: 12px 13px; font-size: 14px; transition: border-color .2s, background .2s;
+}
+.field input::placeholder{ color: var(--dust-dim); }
+.field input:focus, .field select:focus{ border-color: var(--lamp-deep); background: var(--house); outline: none; }
+.field input:focus-visible, .field select:focus-visible{ outline: 2px solid var(--lamp); outline-offset: 1px; }
+.f2{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.f3{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s4); }
+
+.panel{ border: 1px solid var(--edge); border-radius: var(--rad); background: var(--house); padding: var(--s5); }
+.panel + .panel{ margin-top: var(--s4); }
+.panel h3{ font-size: 12px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: var(--s4); color: var(--dust); }
+
+.express{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.paybtn{
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px; border-radius: var(--rad); font-size: 14px; font-weight: 600;
+  background: var(--bone); color: #0B0A09; transition: filter .18s, transform .14s;
+}
+.paybtn:hover{ filter: brightness(.92); transform: translateY(-1px); }
+.paybtn.g{ background: var(--riser-hi); color: var(--bone); box-shadow: inset 0 0 0 1px var(--edge-hard); }
+.paybtn.g:hover{ filter: none; background: #302B28; }
+.orline{ display: flex; align-items: center; gap: var(--s4); margin: var(--s5) 0; color: var(--dust-dim); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; }
+.orline::before, .orline::after{ content:""; flex: 1; height: 1px; background: var(--edge-soft); }
+
+/* ============================================================
+   CONFIRMATION — a wallet pass
+   ============================================================ */
+.pass{
+  max-width: 420px; margin: 0 auto;
+  border: 1px solid var(--edge); border-radius: 6px; background: var(--house);
+  overflow: hidden; box-shadow: 0 40px 90px -40px rgba(0,0,0,.95);
+}
+.pass-top{
+  padding: var(--s5); background: linear-gradient(160deg, rgba(233,180,76,.16), rgba(233,180,76,.02));
+  border-bottom: 1px solid var(--edge-soft);
+}
+.pass-top h3{ font-family: var(--f-display); font-weight: 400; font-size: 27px; line-height: 1.08; letter-spacing: -.015em; margin: var(--s3) 0 6px; }
+.pass-body{ padding: var(--s5); display: flex; flex-direction: column; gap: var(--s5); }
+.pass-facts{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4) var(--s5); }
+.fact .k{ font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--dust-dim); }
+.fact .v{ font-family: var(--f-mono); font-size: 15px; margin-top: 3px; }
+.perf{ position: relative; height: 1px; background: repeating-linear-gradient(90deg, var(--edge-hard) 0 6px, transparent 6px 12px); }
+.perf::before, .perf::after{ content:""; position: absolute; top: -9px; width: 18px; height: 18px; border-radius: 50%; background: #070605; }
+.perf::before{ left: -9px; } .perf::after{ right: -9px; }
+.qr{ display: grid; grid-template-columns: repeat(25, 1fr); width: 168px; height: 168px; margin: 0 auto; background: var(--bone); padding: 8px; border-radius: 3px; }
+.qr span{ background: transparent; }
+.qr span.on{ background: #0B0A09; }
+
+/* ============================================================
+   CONTENT PAGES (pricing / faq / etc.)
+   ============================================================ */
+.page{ padding: var(--s8) 0 var(--s9); }
+.page h1{ font-family: var(--f-display); font-weight: 400; letter-spacing: -.025em; font-size: clamp(38px, 5.6vw, 62px); line-height: 1; margin: 10px 0 var(--s5); }
+.page h2{ font-family: var(--f-display); font-weight: 400; font-size: 30px; letter-spacing: -.015em; margin: var(--s7) 0 var(--s4); }
+.page p + p{ margin-top: var(--s4); }
+.prose{ color: var(--dust); font-size: 15.5px; line-height: 1.72; max-width: 66ch; }
+.prose strong{ color: var(--bone); font-weight: 600; }
+
+.ptable{ width: 100%; border-collapse: collapse; }
+.ptable th{ text-align: left; font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--dust-dim); padding: 0 0 var(--s3); border-bottom: 1px solid var(--edge); }
+.ptable td{ padding: 15px 0; border-bottom: 1px solid var(--edge-soft); vertical-align: top; }
+.ptable td:last-child{ text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--lamp); white-space: nowrap; font-size: 15px; }
+.ptable .sub{ display: block; font-size: 12.5px; color: var(--dust-dim); margin-top: 3px; }
+
+.faq details{ border-bottom: 1px solid var(--edge-soft); }
+.faq summary{ padding: 19px 0; cursor: pointer; font-size: 15.5px; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: var(--s4); align-items: center; transition: color .2s; }
+.faq summary::-webkit-details-marker{ display: none; }
+.faq summary:hover{ color: var(--lamp); }
+.faq summary::after{ content: "+"; font-family: var(--f-mono); font-size: 19px; color: var(--lamp); transition: transform .25s; flex: 0 0 auto; }
+.faq details[open] summary::after{ transform: rotate(45deg); }
+.faq .ans{ padding: 0 0 21px; color: var(--dust); font-size: 14.5px; line-height: 1.7; max-width: 64ch; }
+
+.tiles{ display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--edge-soft); border: 1px solid var(--edge-soft); }
+.tile{ background: var(--stage); padding: var(--s5); }
+.tile .num{ font-family: var(--f-display); font-size: 44px; line-height: 1; color: var(--lamp); letter-spacing: -.02em; }
+.tile .lbl{ font-size: 12px; color: var(--dust); margin-top: var(--s3); line-height: 1.5; }
+
+.gcards{ display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--s4); }
+.gcard{
+  aspect-ratio: 1.586; border-radius: 6px; padding: var(--s4);
+  background: linear-gradient(145deg, #1E1A16, #0E0C0B);
+  box-shadow: inset 0 0 0 1px var(--edge), 0 20px 40px -24px rgba(0,0,0,.9);
+  display: flex; flex-direction: column; justify-content: space-between;
+  transition: transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s;
+}
+.gcard:hover{ transform: translateY(-4px); box-shadow: inset 0 0 0 1px var(--lamp-deep), 0 26px 50px -24px rgba(0,0,0,.95); }
+.gcard .amt{ font-family: var(--f-mono); font-size: 30px; color: var(--lamp); }
+
+.visitgrid{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); align-items: start; }
+.visitgrid h2:first-child{ margin-top: 0; }
+
+/* map */
+.mapbox{ border: 1px solid var(--edge); border-radius: var(--rad); background: var(--house); overflow: hidden; }
+.mapbox svg{ display: block; width: 100%; height: auto; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{ border-top: 1px solid var(--edge-soft); padding: var(--s8) 0 var(--s6); margin-top: var(--s8); background: #080706; position: relative; z-index: 1; }
+.foot-grid{ display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: var(--s7); }
+.foot h5{ font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--dust-dim); margin-bottom: var(--s4); }
+.foot ul{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.foot a{ font-size: 13.5px; color: var(--dust); transition: color .2s; }
+.foot a:hover{ color: var(--lamp); }
+.foot-addr{ font-size: 13.5px; color: var(--dust); line-height: 1.75; margin-top: var(--s4); }
+.foot-addr a{ font-family: var(--f-mono); }
+.foot-base{
+  margin-top: var(--s8); padding-top: var(--s5); border-top: 1px solid var(--edge-soft);
+  display: flex; flex-wrap: wrap; gap: var(--s4); justify-content: space-between; align-items: center;
+}
+
+.proto{
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 9.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  padding: 3px 7px; border: 1px dashed rgba(224,122,95,.45); border-radius: 2px; color: var(--warn);
+}
+
+/* ============================================================
+   MOTION — house lights going down
+   ============================================================ */
+@keyframes rowin{ from{ opacity: 0; transform: translateY(14px); } to{ opacity: 1; transform: translateY(0); } }
+@keyframes fadein{ from{ opacity: 0; transform: translateY(9px); } to{ opacity: 1; transform: translateY(0); } }
+@keyframes glowup{ from{ opacity: 0; } to{ opacity: 1; } }
+/* The house lights go down once, when you walk in — not on every re-render.
+   Only a .hall-enter map animates; later renders paint instantly. */
+.hall-enter .anim-row{ animation: rowin .5s cubic-bezier(.2,.7,.3,1) both; }
+.hall-enter .screen, .hall-enter .spill, .hall-enter .screen-lbl{ animation: glowup .9s ease both; }
+.anim-in{ animation: fadein .4s cubic-bezier(.2,.7,.3,1) both; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+/* ============================================================
+   MOBILE — the booking rail becomes a bottom sheet, the way every
+   ticketing app people already know works. Collapsed it shows the
+   count, the total and the action; tapping it opens the detail.
+   ============================================================ */
+.rail-bar{ display: none; }
+.sheet-scrim{ display: none; }
+
+@media (max-width: 1080px){
+  .book-grid{ grid-template-columns: 1fr; }
+
+  .booking{ padding-bottom: 208px; }
+
+  .rail{
+    /* top:auto is load-bearing — the desktop rule sets top:90px for the sticky
+       rail, and top+bottom together would over-constrain this and pin it up there. */
+    position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 86;
+    border: 0; border-top: 1px solid var(--edge-hard);
+    border-radius: 15px 15px 0 0;
+    background: var(--house);
+    box-shadow: 0 -20px 56px -20px rgba(0,0,0,.96);
+    max-height: 88vh;
+    display: flex; flex-direction: column;
+  }
+  .rail-bar{
+    position: relative;
+    display: flex; align-items: center; gap: var(--s4);
+    width: 100%; padding: 15px var(--s5) 13px;
+    border-bottom: 1px solid var(--edge-soft);
+    text-align: left;
+  }
+  .rail-bar::before{ /* grab handle */
+    content:""; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    width: 34px; height: 3px; border-radius: 2px; background: var(--edge-hard);
+  }
+  .rb-txt{ display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .rb-txt b{ font-size: 14px; font-weight: 600; }
+  .rb-txt span{ font-family: var(--f-mono); font-size: 11.5px; color: var(--dust);
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rb-total{ margin-left: auto; font-family: var(--f-mono); font-size: 19px; color: var(--lamp); }
+  .rb-chev{ flex: 0 0 auto; color: var(--dust); transition: transform .28s cubic-bezier(.2,.7,.3,1); }
+  .rail.open .rb-chev{ transform: rotate(180deg); }
+
+  .rail-head, .rail-body{ display: none; }
+  .rail.open .rail-head{ display: block; }
+  .rail.open .rail-body{ display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .rail-foot{ border-top: 1px solid var(--edge-soft); padding-bottom: calc(var(--s5) + env(safe-area-inset-bottom, 0px)); }
+
+  .sheet-scrim{
+    display: block; position: fixed; inset: 0; z-index: 85;
+    background: rgba(6,5,4,.66); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+    animation: fadein .22s ease both;
+  }
+}
+
+@media (max-width: 900px){
+  /* Touch targets. 16px inputs stop iOS zooming the page on focus. */
+  .field input, .field select{ font-size: 16px; padding: 13px 13px; }
+  .seatchip select{ font-size: 16px; padding: 8px 7px; }
+
+  .time{ min-height: 44px; min-width: 62px; display: inline-flex;
+         align-items: center; justify-content: center; font-size: 14px; }
+  .time-more{ min-height: 44px; display: inline-flex; align-items: center; }
+  .showcard{ min-width: 120px; padding: 13px 15px; }
+
+  .datestrip{ scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+              margin: 0 calc(-1 * var(--s5)); padding: 0 var(--s5) var(--s2); }
+  .datechip{ scroll-snap-align: start; min-width: 88px; padding: 13px 16px 14px; }
+
+  .stepper button{ width: 46px; height: 46px; font-size: 18px; }
+  .stepper .val{ min-width: 52px; height: 46px; font-size: 17px; }
+
+  .conc-grid{ grid-template-columns: 1fr; }
+  .legend{ gap: var(--s4) var(--s5); padding: var(--s5) var(--s2) 0; }
+  .leg{ font-size: 12px; }
+
+  /* No hover on touch, so the seat tooltip never fires — the sheet carries it. */
+  .hall{ padding: var(--s7) var(--s2) var(--s5); }
+  .partybar{ gap: var(--s3); }
+  .partybar > div:last-child{ width: 100%; }
+  .partybar .btn{ flex: 1; }
+}
+
+@media (max-width: 1080px){
+  /* the sheet owns the bottom of the screen, so the toast sits above it */
+  #toast.toast{ bottom: calc(214px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 640px){
+  /* Get to the seat map fast: one compact control row, not three stacked ones. */
+  .partybar{ padding: var(--s3) 0 var(--s4); gap: var(--s3); align-items: flex-end; flex-wrap: wrap; }
+  .partybar > div:last-child{ width: 100%; flex: none; display: flex; gap: 8px; margin-left: 0; }
+  .partybar .btn{ padding: 13px 8px; font-size: 11px; letter-spacing: .06em; flex: 1;
+                  text-align: center; white-space: nowrap; }
+  .booking > .wrap > .book-grid > div > .small{ font-size: 12.5px; margin-bottom: 14px !important; }
+  .hall{ padding: var(--s6) var(--s2) var(--s5); }
+  .screen-lbl{ margin-bottom: var(--s6); }
+
+  .seat{ width: 27px; height: 25px; flex: 0 0 27px; }
+  .seat.loveL, .seat.loveR{ width: 30px; flex-basis: 30px; }
+  .aisle{ width: 30px; flex: 0 0 30px; }
+  .rowlbl{ width: 16px; flex: 0 0 16px; }
+}
+
+@media (hover: none){
+  .tip{ display: none !important; }
+  .card:hover .art{ transform: none; }
+}
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns: 1fr; gap: var(--s6); }
+  .hero-art{ max-width: 240px; margin: 0; }
+  .detail-grid{ grid-template-columns: 1fr; gap: var(--s6); }
+  .detail-grid .art{ max-width: 230px; }
+  .visitgrid{ grid-template-columns: 1fr; gap: var(--s6); }
+  .foot-grid{ grid-template-columns: 1fr 1fr; gap: var(--s6); }
+  .nav{ display: none; }
+  .burger{ display: block; }
+  .chrome-in .btn-tix{ display: none; }
+  .steps{ display: none; }
+}
+@media (max-width: 640px){
+  .hero{ padding: var(--s7) 0 var(--s6); }
+  .sec{ padding: var(--s7) 0; }
+  .filmgrid{ grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: var(--s5) var(--s4); }
+  .art-title{ font-size: 19px; padding: var(--s4) var(--s3) var(--s3); }
+  .f2, .f3{ grid-template-columns: 1fr; }
+  .express{ grid-template-columns: 1fr; }
+  .foot-grid{ grid-template-columns: 1fr; }
+  .pass-facts{ grid-template-columns: 1fr 1fr; }
+  .bookbar-in{ height: 60px; gap: var(--s4); }
+  .bb-title{ display: none; }
+  .tiles{ grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<div id="chrome"></div>
+<main id="app"></main>
+<div id="foot"></div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ════════════════════════════════════════════════════════════
+   1. THE HOUSE — Capitol 6, 805 Yates Street, Victoria BC
+   Six auditoriums, 502 power recliners, every seat reserved.
+   ════════════════════════════════════════════════════════════ */
+
+var HOUSES = {
+  1: { seats: 128, rows: [12,12,14,14,16,16,16,14,14], name: "House 1", note: "Largest house · Dolby Atmos" },
+  2: { seats: 96,  rows: [10,10,12,12,14,14,12,12],    name: "House 2", note: "Laser projection" },
+  3: { seats: 84,  rows: [10,10,12,12,14,14,12],       name: "House 3", note: "Laser projection" },
+  4: { seats: 72,  rows: [10,12,12,14,14,10],          name: "House 4", note: "Intimate" },
+  5: { seats: 66,  rows: [10,10,12,12,12,10],          name: "House 5", note: "Intimate" },
+  6: { seats: 56,  rows: [10,10,12,12,12],             name: "House 6", note: "Smallest house · rep & repertory" }
+};
+
+/* Generated artwork, injected by tools/generate-art.mjs as data: URIs.
+   Empty means the page falls back to its typographic title plates and the
+   vector wordmark — both are complete designs, not placeholders. */
+var POSTERS = window.C6_POSTERS || {};
+var LOGO    = window.C6_LOGO    || null;
+
+var TODAY = "2026-08-31"; // a Monday — seniors $7 today, $7.50 for everyone tomorrow
+
+/* ── Films now playing ────────────────────────────────────────
+   Every title, runtime, rating, director and cast below is the real
+   release as of Monday 31 August 2026. Runtimes are the verified
+   theatrical running times. Showtimes themselves are illustrative —
+   the live schedule lives on capitol6.ca and the 778-265-7988 hotline.
+   BC ratings are Consumer Protection BC classifications, which differ
+   from the MPA ratings quoted in US press.
+   ───────────────────────────────────────────────────────────── */
+var FILMS = [
+  { id:"spiderman", title:"Spider-Man: Brand New Day", rating:"PG", runtime:145,
+    genres:["Action","Adventure","Sci-Fi"], dir:"Destin Daniel Cretton",
+    cast:["Tom Holland","Zendaya","Jon Bernthal","Sadie Sink","Mark Ruffalo"],
+    art:{a:"#7E1220", b:"#12070C", fig:"rings"},
+    syn:"Peter Parker starts over in a New York that no longer remembers him \u2014 and finds Jon Bernthal\u2019s Punisher waiting in the gap. The biggest opening weekend in history, and it hit two billion dollars worldwide in three weeks. Presented in Dolby Atmos in House 1.",
+    formats:["Standard","3D"], opened:"July 31, 2026", status:"now", featured:true,
+    base:{ mat:["12:40","3:40"], eve:["6:40","9:40"] }, houses:[1,2] },
+
+  { id:"odyssey", title:"The Odyssey", rating:"14A", runtime:172,
+    genres:["Action","Adventure","Fantasy"], dir:"Christopher Nolan",
+    cast:["Matt Damon","Anne Hathaway","Tom Holland","Zendaya","Charlize Theron","Robert Pattinson"],
+    art:{a:"#0F3446", b:"#C08A38", fig:"wave"},
+    syn:"Nolan shoots Homer on large format and takes his time about it \u2014 two hours and fifty-two minutes of salt, wind and bad decisions. The most expensive R-rated film ever made, and still filling the room in its sixth week.",
+    formats:["Standard"], opened:"July 17, 2026", status:"now", featured:false,
+    base:{ mat:["12:00"], eve:["4:00","8:00"] }, houses:[2,1] },
+
+  { id:"insidious", title:"Insidious: Out of the Further", rating:"14A", runtime:106,
+    genres:["Horror","Thriller"], dir:"Jason Blum",
+    cast:["Patrick Wilson","Rose Byrne","Ty Simpkins"],
+    art:{a:"#0C0B10", b:"#5B2358", fig:"split"},
+    syn:"The sixth Insidious, and the one where the Further stops staying put. Took first place on its opening Friday and pushed the franchise past $800 million worldwide. A little goofy, a little gross, and a lot of fun in a dark house.",
+    formats:["Standard"], opened:"August 21, 2026", status:"now", featured:false,
+    base:{ mat:["2:20"], eve:["4:50","7:20","9:50"] }, houses:[3,6] },
+
+  { id:"coyote", title:"Coyote vs. Acme", rating:"PG", runtime:103,
+    genres:["Animation","Adventure","Comedy"], dir:"Dave Green",
+    cast:["Will Forte","John Cena","Lana Condor","P.J. Byrne"],
+    art:{a:"#8C3B1E", b:"#E8A33D", fig:"band"},
+    syn:"A tenacious unemployed coyote uncovers a corporate cover-up and takes Acme Inc. to court. Shelved for years, fought over publicly, and finally on a screen \u2014 it plays like a film that knew it was fighting for its life. PG for cartoon violence and some language.",
+    formats:["Standard"], opened:"August 28, 2026", status:"now", featured:false,
+    base:{ mat:["11:50","2:15"], eve:["4:40","7:05"] }, houses:[4,3] },
+
+  { id:"pawpatrol", title:"PAW Patrol: The Dino Movie", rating:"G", runtime:88,
+    genres:["Animation","Adventure","Family"], dir:"Cal Brunker",
+    cast:["Finn Lee-Epp","Christian Convery","Ron Pardo"],
+    art:{a:"#1D5E52", b:"#E8A93A", fig:"orb"},
+    syn:"The pups crash-land on an uncharted island full of dinosaurs and meet Rex, stranded there for years. Then Mayor Humdinger starts mining and wakes a volcano. Eighty-eight minutes, which is the correct length. Matinees all week.",
+    formats:["Standard","3D"], opened:"August 14, 2026", status:"now", featured:false,
+    base:{ mat:["10:30","12:45","3:00"], eve:["5:15"] }, houses:[5,4] },
+
+  { id:"dogstars", title:"The Dog Stars", rating:"14A", runtime:118,
+    genres:["Sci-Fi","Drama","Adventure"], dir:"Ridley Scott",
+    cast:["Jacob Elordi","Margaret Qualley","Josh Brolin","Allison Janney","Benedict Wong"],
+    art:{a:"#243026", b:"#9FAE84", fig:"arc"},
+    syn:"Ridley Scott adapts Peter Heller\u2019s novel: Hig, a biplane pilot who outlived the virus that took nearly everyone, flying across empty country with a dog and a difficult neighbour. It is not doing the numbers it deserves. Come and see it while it is still on a big screen.",
+    formats:["Standard"], opened:"August 28, 2026", status:"now", featured:false,
+    base:{ mat:["3:10"], eve:["6:10","9:10"] }, houses:[5,3] },
+
+  { id:"findingemily", title:"Finding Emily", rating:"PG", runtime:111,
+    genres:["Comedy","Romance"], dir:"Tom Kingsley",
+    cast:["Spike Fearn","Mia Threapleton"],
+    art:{a:"#5A2438", b:"#E9A48E", fig:"halo"},
+    syn:"Owen is twenty-three and runs sound at a student union. He meets Emily, gets her number, and then has to find her again. Took the Audience Award at Sydney and has been winning rooms ever since \u2014 the sleeper of the month.",
+    formats:["Standard"], opened:"August 28, 2026", status:"now", featured:false,
+    base:{ mat:["1:20"], eve:["4:10","7:00","9:45"] }, houses:[6,4] },
+
+  { id:"terminator2", title:"Terminator 2: Judgment Day", rating:"14A", runtime:137,
+    genres:["Action","Sci-Fi"], dir:"James Cameron",
+    cast:["Arnold Schwarzenegger","Linda Hamilton","Robert Patrick","Edward Furlong"],
+    art:{a:"#16212E", b:"#D96A2B", fig:"grid"},
+    syn:"Thirty-five years old this month and still the high-water mark for the form. Back on a real screen for the anniversary, one show a night in House 6. The liquid metal has aged better than almost anything since.",
+    formats:["Standard"], opened:"August 28, 2026 \u00b7 35th anniversary", status:"now", featured:false,
+    base:{ mat:[], eve:["7:30"] }, houses:[6] }
+];
+
+/* ── Coming soon & repertory ──────────────────────── */
+var SOON = [
+  { id:"hope", title:"Hope", rating:"PG", opens:"September 9", advance:true,
+    art:{a:"#1B3A2E", b:"#C8B27A", fig:"arc"}, tag:"Advance tickets on sale",
+    syn:"A Vatican thriller from the team behind Conclave, and the first real awards-season fixture of the autumn." },
+  { id:"practicalmagic2", title:"Practical Magic 2", rating:"PG", opens:"September 11", advance:true,
+    art:{a:"#2E1A4A", b:"#9B7BC4", fig:"halo"}, tag:"Advance tickets on sale",
+    syn:"Sandra Bullock and Nicole Kidman return as the Owens sisters, twenty-eight years on." },
+  { id:"oasis", title:"Oasis: Don\u2019t Look Back in Anger", rating:"PG", opens:"September 11", advance:true,
+    art:{a:"#14203A", b:"#7EA6D6", fig:"wave"}, tag:"One week only \u00b7 Dolby Atmos",
+    syn:"The reunion tour, shot across four nights at Heaton Park. Loud, in House 1, as intended." },
+  { id:"thefix", title:"The Fix", rating:"14A", opens:"September 11", advance:false,
+    art:{a:"#2B2417", b:"#B5943F", fig:"band"}, tag:"",
+    syn:"A cycling doping scandal, told from inside the team car." },
+  { id:"onslaught", title:"Onslaught", rating:"18A", opens:"September 18", advance:false,
+    art:{a:"#2A0F12", b:"#C6483A", fig:"split"}, tag:"A24",
+    syn:"Adam Wingard returns to action-horror. Not a sequel to The Guest, whatever you have read." },
+  { id:"primetime", title:"Primetime", rating:"14A", opens:"September 25", advance:false,
+    art:{a:"#12212E", b:"#5E8FA8", fig:"perf"}, tag:"A24",
+    syn:"Lance Oppenheim casts Robert Pattinson as a man who hosts a show about catching predators." }
+];
+
+var REP = [
+  { id:"transformers40", title:"The Transformers: The Movie", rating:"PG", opens:"September 17",
+    art:{a:"#1C2140", b:"#C9873A", fig:"grid"}, tag:"40th anniversary \u00b7 4K",
+    syn:"The 1986 animated original, restored. Orson Welles\u2019 last performance, and still the loudest thing we will play all month." },
+  { id:"ghostshell30", title:"Ghost in the Shell", rating:"14A", opens:"September 18",
+    art:{a:"#0F2A2E", b:"#5FA8A0", fig:"rings"}, tag:"30th anniversary \u00b7 4K",
+    syn:"Mamoru Oshii\u2019s 1995 landmark in a new 4K restoration. Subtitled, one night only, House 6." },
+  { id:"shaunsheep", title:"Shaun the Sheep: The Beast of Mossy Bottom", rating:"G", opens:"September 18",
+    art:{a:"#3A5A2E", b:"#DCCB8A", fig:"orb"}, tag:"Family matinees",
+    syn:"Aardman, stop-motion, no dialogue, universally understood. Saturday and Sunday mornings." }
+];
+
+/* ── Concessions ──────────────────────────────────────────── */
+var CONCESSIONS = [
+  { id:"pop_l",   name:"Large popcorn",       price:9.50,  desc:"Free refill, any size, any time. Real butter on request.", cat:"Popcorn" },
+  { id:"pop_m",   name:"Medium popcorn",      price:8.00,  desc:"The one most people actually finish.", cat:"Popcorn" },
+  { id:"combo",   name:"The Yates Street",    price:15.50, desc:"Large popcorn and a large fountain drink. Saves $1.00.", cat:"Combo", best:true },
+  { id:"drink_l", name:"Large fountain drink",price:7.00,  desc:"Free refill at the counter.", cat:"Drinks" },
+  { id:"phillips",name:"Phillips craft soda", price:5.50,  desc:"Made eleven blocks from here. Root beer, ginger ale or orange cream.", cat:"Drinks", local:true },
+  { id:"bluebuck",name:"Phillips Blue Buck",  price:9.00,  desc:"Licensed screenings only. Valid ID required, 19+.", cat:"Drinks", age:true },
+  { id:"nachos",  name:"Nachos & queso",      price:8.50,  desc:"Jalapeños on the side.", cat:"Hot" },
+  { id:"hotdog",  name:"All-beef hot dog",    price:7.00,  desc:"Condiment bar in the lobby.", cat:"Hot" },
+  { id:"candy",   name:"Candy",               price:5.50,  desc:"Twelve kinds at the counter. Pick when you collect.", cat:"Sweet" },
+  { id:"icecream",name:"Häagen-Dazs bar",     price:6.00,  desc:"Vanilla-milk chocolate or coffee-almond crunch.", cat:"Sweet" }
+];
+
+/* ── Prices — the real Capitol 6 card ─────────────────────── */
+var PRICES = { adult:12.00, senior:10.50, child:10.00, matinee:10.00, tuesday:7.50, seniorMonday:7.00, threeD:3.00, fee:1.50 };
+var TYPE_LABEL = { adult:"Adult (14–64)", senior:"Senior (65+)", child:"Child (3–13)" };
+
+/* ════════════════════════════════════════════════════════════
+   2. SHOWTIME GENERATION
+   ════════════════════════════════════════════════════════════ */
+
+function addDays(iso, n){
+  var p = iso.split("-");
+  var d = new Date(Date.UTC(+p[0], +p[1]-1, +p[2]));
+  d.setUTCDate(d.getUTCDate()+n);
+  return d.toISOString().slice(0,10);
+}
+function dowIndex(iso){
+  var p = iso.split("-");
+  return new Date(Date.UTC(+p[0], +p[1]-1, +p[2])).getUTCDay();
+}
+var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var DOW_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var MON = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function prettyDate(iso){
+  var p = iso.split("-");
+  return DOW_LONG[dowIndex(iso)] + ", " + MON[+p[1]-1] + " " + (+p[2]);
+}
+function shortDate(iso){
+  var p = iso.split("-");
+  return MON[+p[1]-1].slice(0,3) + " " + (+p[2]);
+}
+
+var DATES = [];
+for (var di=0; di<7; di++) DATES.push(addDays(TODAY, di));
+
+/* deterministic hash → 0..1, so a given show always looks the same */
+function rnd(str){
+  var h = 2166136261;
+  for (var i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return ((h >>> 0) % 100000) / 100000;
+}
+
+function fmtTime(mins){
+  var h = Math.floor(mins/60), m = mins%60;
+  var ap = h >= 12 ? "PM" : "AM";
+  var hh = h % 12; if (hh === 0) hh = 12;
+  return hh + ":" + (m<10?"0":"") + m + " " + ap;
+}
+function fmtTimeShort(mins){
+  var h = Math.floor(mins/60), m = mins%60;
+  var hh = h % 12; if (hh === 0) hh = 12;
+  return hh + ":" + (m<10?"0":"") + m;
+}
+
+/* Build every show for the week. Each show carries a stable id. */
+var SHOWS = [];
+FILMS.forEach(function(f){
+  DATES.forEach(function(date){
+    var dw = dowIndex(date);
+    var weekend = (dw === 0 || dw === 6);
+    var mats = f.base.mat.slice();
+    var eves = f.base.eve.slice();
+    // weekends get an extra early matinee; Mondays trim the latest show
+    if (weekend && mats.length) mats = [ "10:" + (dw===6 ? "45" : "30") ].concat(mats);
+    if (dw === 1 && eves.length > 2) eves = eves.slice(0, eves.length-1);
+
+    // Matinee is decided by the clock, never by which list a time came from:
+    // a 4:10 PM show is a matinee only if it starts before 4:00 PM. It doesn't.
+    var all = [];
+    mats.forEach(function(t){
+      var p = t.split(":"), h = +p[0];
+      var mins = (h < 10 ? h + 12 : h) * 60 + (+p[1]);
+      all.push({ raw:t, mins: mins, mat: mins < 16*60 });
+    });
+    eves.forEach(function(t){
+      var p = t.split(":"), h = +p[0];
+      var mins = (h < 11 ? h + 12 : h) * 60 + (+p[1]);
+      all.push({ raw:t, mins: mins, mat: mins < 16*60 });
+    });
+    all.sort(function(a,b){ return a.mins - b.mins; });
+
+    all.forEach(function(s, i){
+      var id = f.id + "|" + date + "|" + s.raw;
+      var house = f.houses[ i % f.houses.length ];
+      var is3D = f.formats.indexOf("3D") > -1 && (i === 1 || (weekend && i === 2));
+      // occupancy: quiet matinees, busy weekend evenings, busiest of all on Tuesday
+      var base = s.mat ? 0.09 : 0.26;
+      if (weekend && !s.mat) base = 0.44;
+      if (f.featured) base += 0.10;
+      if (dw === 2) base += 0.12; // Tuesday $7.50 — the busiest night of the week
+      var occ = Math.min(0.86, base + rnd(id) * 0.15);
+      SHOWS.push({
+        id:id, filmId:f.id, date:date, mins:s.mins, mat:s.mat,
+        house:house, fmt: is3D ? "3D" : "Standard", occ:occ
+      });
+    });
+  });
+});
+
+function showsFor(filmId, date){
+  return SHOWS.filter(function(s){ return s.filmId===filmId && s.date===date; })
+              .sort(function(a,b){ return a.mins-b.mins; });
+}
+function getShow(id){ for (var i=0;i<SHOWS.length;i++) if (SHOWS[i].id===id) return SHOWS[i]; return null; }
+function getFilm(id){ for (var i=0;i<FILMS.length;i++) if (FILMS[i].id===id) return FILMS[i]; return null; }
+
+/* “Now” for the prototype: 2:10 PM on the pinned Monday. Earlier shows read as passed. */
+var NOW_MINS = 14*60 + 10;
+function passed(show){ return show.date === TODAY && show.mins < NOW_MINS; }
+
+/* ════════════════════════════════════════════════════════════
+   3. SEATING — arced rows, power recliners, real geometry
+   ════════════════════════════════════════════════════════════ */
+
+var ROWLETTERS = "ABCDEFGHJKLMN".split(""); // no I — cinemas skip it
+
+function buildHall(houseNo){
+  var h = HOUSES[houseNo];
+  var rows = [];
+  var wcRowIdx = Math.max(1, Math.round(h.rows.length * 0.55) - 1); // the cross-aisle row
+  var loveRowIdx = h.rows.length - 1;                                // back row is loveseats
+
+  h.rows.forEach(function(count, ri){
+    var seats = [];
+    var half = count / 2;
+    for (var i=0; i<count; i++){
+      var kind = "std";
+      if (ri === loveRowIdx) kind = (i % 2 === 0) ? "loveL" : "loveR";
+      if (ri === wcRowIdx && (i === 0 || i === count-1)) kind = "wc";
+      if (ri === wcRowIdx && (i === 1 || i === count-2)) kind = "comp";
+      seats.push({ n: i+1, kind: kind, aisleAfter: (i === half-1) });
+    }
+    rows.push({ label: ROWLETTERS[ri], seats: seats, count: count });
+  });
+  return { no: houseNo, rows: rows, total: h.seats, name: h.name, note: h.note };
+}
+
+/* Sightline: peaks about two-thirds back, dead centre. */
+function sightline(ri, nRows, si, nSeats){
+  var r = nRows > 1 ? ri/(nRows-1) : 0.5;
+  var rowScore = 1 - Math.min(1, Math.abs(r - 0.68) / 0.62);
+  var c = nSeats > 1 ? Math.abs((si - (nSeats-1)/2) / ((nSeats-1)/2)) : 0;
+  var colScore = 1 - c;
+  return Math.round((rowScore*0.55 + colScore*0.45) * 100);
+}
+
+function seatState(show, rowLabel, seatNo){
+  return rnd(show.id + "#" + rowLabel + seatNo) < show.occ ? "sold" : "free";
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. PRICING RULES — the box office, in code
+   ════════════════════════════════════════════════════════════ */
+
+function priceFor(type, show){
+  var dw = dowIndex(show.date);
+  var candidates = [];
+  var reason = TYPE_LABEL[type];
+
+  if (dw === 2){ candidates.push([PRICES.tuesday, "Tuesday — all ages"]); }
+  if (dw === 1 && type === "senior"){ candidates.push([PRICES.seniorMonday, "Seniors Monday"]); }
+  if (show.mat){ candidates.push([PRICES.matinee, "Matinee (before 4:00 PM)"]); }
+  candidates.push([PRICES[type], reason]);
+
+  var best = candidates[0];
+  candidates.forEach(function(c){ if (c[0] < best[0]) best = c; });
+
+  var amt = best[0];
+  if (show.fmt === "3D") amt += PRICES.threeD;
+  return { amount: amt, rule: best[1], threeD: show.fmt === "3D" };
+}
+
+function money(n){ return "$" + n.toFixed(2); }
+
+/* ════════════════════════════════════════════════════════════
+   5. STATE
+   ════════════════════════════════════════════════════════════ */
+
+var S = {
+  view: "home",
+  filmId: null,
+  showId: null,
+  date: TODAY,
+  party: 2,
+  seats: [],          // [{ id, row, n, kind, score }]
+  types: {},          // seatId → 'adult' | 'senior' | 'child'
+  addons: {},         // concessionId → qty
+  deliver: false,
+  holdEnds: null,
+  order: null,
+  menuOpen: false,
+  railOpen: false          // mobile bottom sheet expanded
+};
+
+var holdTimer = null;
+var hallAnimated = false;   // the lights-down sequence plays once per auditorium
+
+function startHold(){
+  S.holdEnds = Date.now() + 7*60*1000;
+  if (holdTimer) clearInterval(holdTimer);
+  holdTimer = setInterval(tickHold, 1000);
+}
+function stopHold(){ if (holdTimer) clearInterval(holdTimer); holdTimer = null; S.holdEnds = null; }
+function tickHold(){
+  var el = document.getElementById("holdclock");
+  if (!el || !S.holdEnds) return;
+  var left = Math.max(0, S.holdEnds - Date.now());
+  var m = Math.floor(left/60000), s = Math.floor((left%60000)/1000);
+  el.textContent = m + ":" + (s<10?"0":"") + s;
+  var wrap = el.closest(".hold");
+  if (wrap) wrap.classList.toggle("urgent", left < 90000);
+  if (left <= 0){
+    stopHold();
+    S.seats = []; S.types = {};
+    go("film", { filmId: S.filmId });
+    toast("Your seat hold expired. Nothing was charged — pick your seats again.");
+  }
+}
+
+function go(view, patch){
+  if (patch) for (var k in patch) S[k] = patch[k];
+  S.view = view;
+  S.menuOpen = false;
+  S.railOpen = false;
+  if (view !== "seats" && view !== "addons" && view !== "checkout") stopHold();
+  render();
+  window.scrollTo(0, 0);
+}
+
+/* ════════════════════════════════════════════════════════════
+   6. LOGO
+   ════════════════════════════════════════════════════════════ */
+
+/* The 6 as a projector aperture: the bowl is the lens, the ascender
+   is the beam climbing to the screen, the dot inside is the lamp. */
+function mark(size){
+  var s = size || 30;
+  return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 32 32" aria-hidden="true" fill="none">'
+    + '<circle cx="16" cy="20.5" r="8" class="mark-ring" stroke-width="2.1"/>'
+    + '<path d="M16 12.5 C16 6.4 19.7 2.6 25.3 2.6" class="mark-beam" stroke-width="2.1" stroke-linecap="round"/>'
+    + '<circle cx="16" cy="20.5" r="3.1" class="mark-lamp"/>'
+    + '</svg>';
+}
+function lockup(size){
+  if (LOGO) return '<span class="lockup"><img class="logo-img" src="'+LOGO+'" alt="Capitol 6" style="height:'+((size||28)+6)+'px"></span>';
+  return '<span class="lockup">' + mark(size||28) + '<span class="word">Capitol</span>' + '</span>';
+}
+
+/* ════════════════════════════════════════════════════════════
+   7. SMALL RENDER HELPERS
+   ════════════════════════════════════════════════════════════ */
+
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+  return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+}); }
+
+function artPlate(f, opts){
+  opts = opts || {};
+  var eyebrow = opts.eyebrow ? '<small>'+esc(opts.eyebrow)+'</small>' : '';
+  var cls = opts.cls ? " " + opts.cls : "";
+
+  if (POSTERS[f.id]){
+    return '<div class="art art-photo'+cls+'">'
+      + '<img src="'+POSTERS[f.id]+'" alt="'+esc(f.title)+'" loading="lazy" decoding="async">'
+      + (opts.eyebrow ? '<div class="art-tag">'+esc(opts.eyebrow)+'</div>' : '')
+      + '</div>';
+  }
+
+  return '<div class="art'+cls+'" style="--a:'+f.art.a+';--b:'+f.art.b+'">'
+    + '<div class="fig fig-'+f.art.fig+'"></div>'
+    + '<div class="art-title">'+eyebrow+esc(f.title)+'</div>'
+    + '</div>';
+}
+
+function toast(msg){
+  var t = document.getElementById("toast");
+  if (!t){
+    t = document.createElement("div");
+    t.id = "toast";
+    t.className = "toast";
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  requestAnimationFrame(function(){ t.classList.add("show"); });
+  clearTimeout(t._h);
+  t._h = setTimeout(function(){ t.classList.remove("show"); }, 4200);
+}
+
+/* ════════════════════════════════════════════════════════════
+   8. CHROME + FOOTER
+   ════════════════════════════════════════════════════════════ */
+
+var NAV = [
+  ["home",   "Now Playing"],
+  ["soon",   "Coming Soon"],
+  ["pricing","Pricing"],
+  ["theatre","The Theatre"],
+  ["visit",  "Visit"]
+];
+
+function renderChrome(){
+  var booking = (S.view === "seats" || S.view === "addons" || S.view === "checkout");
+  var el = document.getElementById("chrome");
+
+  if (booking){
+    var show = getShow(S.showId), film = getFilm(S.filmId);
+    var steps = [["seats","Seats"],["addons","Add-ons"],["checkout","Pay"]];
+    var idx = ["seats","addons","checkout"].indexOf(S.view);
+    var stepHtml = steps.map(function(st, i){
+      var cls = i === idx ? "step on" : (i < idx ? "step done" : "step");
+      return '<div class="'+cls+'"><i>'+(i<idx ? "✓" : (i+1))+'</i>'+st[1]+'</div>';
+    }).join('<div class="step-sep"></div>');
+
+    el.innerHTML =
+      '<div class="bookbar"><div class="bookbar-in">'
+      + '<button class="bb-back" data-go="film" data-film="'+film.id+'">'
+        + '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        + 'Exit</button>'
+      + '<div class="bb-title"><div class="t">'+esc(film.title)+'</div>'
+        + '<div class="s">'+HOUSES[show.house].name+' · '+shortDate(show.date)+' · '+fmtTime(show.mins)+'</div></div>'
+      + '<div class="steps">'+stepHtml+'</div>'
+      + '<div class="hold"><span class="pulse"></span>Held <span id="holdclock" class="mono">7:00</span></div>'
+      + '</div></div>';
+    return;
+  }
+
+  var links = NAV.map(function(n){
+    var on = (n[0] === S.view || (S.view === "film" && n[0] === "home")) ? " class=\"on\"" : "";
+    return '<a href="#"'+on+' data-go="'+n[0]+'">'+n[1]+'</a>';
+  }).join("");
+
+  el.innerHTML =
+    '<div class="chrome"><div class="chrome-in">'
+    + '<a href="#" data-go="home" aria-label="Capitol 6 — home">'+lockup(28)+'</a>'
+    + '<nav class="nav">'+links+'<a href="#" data-go="gift">Gift Cards</a></nav>'
+    + '<button class="btn-tix" data-go="home">Buy Tickets</button>'
+    + '<button class="burger" id="burger" aria-label="Menu" aria-expanded="'+(S.menuOpen?"true":"false")+'"><span></span><span></span><span></span></button>'
+    + '</div>'
+    + '<div class="mobnav'+(S.menuOpen?" open":"")+'">'
+      + NAV.map(function(n){ return '<a href="#" data-go="'+n[0]+'">'+n[1]+'</a>'; }).join("")
+      + '<a href="#" data-go="gift">Gift Cards</a><a href="#" data-go="private">Private Screenings</a><a href="#" data-go="faq">FAQ</a>'
+    + '</div></div>';
+}
+
+function renderFoot(){
+  var booking = (S.view === "seats" || S.view === "addons" || S.view === "checkout");
+  var el = document.getElementById("foot");
+  if (booking){ el.innerHTML = ""; return; }
+
+  el.innerHTML =
+  '<footer class="foot"><div class="wrap">'
+  + '<div class="foot-grid">'
+    + '<div>' + lockup(30)
+      + '<p class="foot-addr">805 Yates Street<br>Victoria, BC&nbsp; V8W 1M1<br><br>'
+      + 'Theatre office <a href="tel:+17782659749">778-265-9749</a><br>'
+      + 'Movie hotline <a href="tel:+17782657988">778-265-7988</a></p>'
+      + '<p class="xsmall" style="margin-top:18px;line-height:1.7">Box office opens 30 minutes<br>before the first show.</p>'
+    + '</div>'
+    + '<div><h5>Visit</h5><ul>'
+      + '<li><a href="#" data-go="visit">Map &amp; directions</a></li>'
+      + '<li><a href="#" data-go="visit">Parking</a></li>'
+      + '<li><a href="#" data-go="visit">Accessibility</a></li>'
+      + '<li><a href="#" data-go="visit">Contact us</a></li>'
+    + '</ul></div>'
+    + '<div><h5>Tickets</h5><ul>'
+      + '<li><a href="#" data-go="pricing">Ticket pricing</a></li>'
+      + '<li><a href="#" data-go="gift">Gift cards</a></li>'
+      + '<li><a href="#" data-go="pricing">Rewards Club</a></li>'
+      + '<li><a href="#" data-go="private">Private screenings</a></li>'
+      + '<li><a href="#" data-go="faq">FAQ</a></li>'
+    + '</ul></div>'
+    + '<div><h5>The Theatre</h5><ul>'
+      + '<li><a href="#" data-go="theatre">Our story</a></li>'
+      + '<li><a href="#" data-go="theatre">The six houses</a></li>'
+      + '<li><a href="#" data-go="visit">Employment</a></li>'
+      + '<li><a href="#" data-go="privacy">Privacy policy</a></li>'
+    + '</ul></div>'
+  + '</div>'
+  + '<div class="foot-base">'
+    + '<p class="xsmall">© 2026 Capitol 6 Theatres · Operated by Golin Cinemas Inc. · Victoria, British Columbia</p>'
+    + '<span class="proto">Prototype · showtimes are illustrative</span>'
+  + '</div>'
+  + '</div></footer>';
+}
+
+/* ════════════════════════════════════════════════════════════
+   9. VIEWS
+   ════════════════════════════════════════════════════════════ */
+
+function dateStrip(active, filmId){
+  return '<div class="datestrip">' + DATES.map(function(d){
+    var dw = dowIndex(d);
+    var deal = dw === 2 ? "$7.50" : (dw === 1 ? "65+ $7" : "");
+    var label = d === TODAY ? "Today" : DOW[dw];
+    return '<button class="datechip'+(d===active?" on":"")+'" data-date="'+d+'"'+(filmId?' data-film="'+filmId+'"':'')+'>'
+      + '<div class="dow">'+label+'</div>'
+      + '<div class="dnum">'+(+d.split("-")[2])+'</div>'
+      + (deal ? '<span class="deal">'+deal+'</span>' : '<span class="deal">&nbsp;</span>')
+      + '</button>';
+  }).join("") + '</div>';
+}
+
+function timeChips(filmId, date, limit){
+  var shows = showsFor(filmId, date);
+  var shown = limit ? shows.slice(0, limit) : shows;
+  var html = shown.map(function(s){
+    if (passed(s)) return '<span class="time gone" title="This show has started">'+fmtTimeShort(s.mins)+'</span>';
+    var left = Math.round(HOUSES[s.house].seats * (1 - s.occ));
+    var thin = left < 12 ? " thin" : "";
+    return '<button class="time'+thin+'" data-show="'+esc(s.id)+'" title="'+HOUSES[s.house].name+' · '+left+' seats left'+(s.fmt==="3D"?" · 3D":"")+'">'
+      + fmtTimeShort(s.mins) + '</button>';
+  }).join("");
+  if (limit && shows.length > limit){
+    html += '<button class="time-more" data-go="film" data-film="'+filmId+'">+'+(shows.length-limit)+'</button>';
+  }
+  if (!shows.length) html = '<span class="xsmall">No screenings this day</span>';
+  return '<div class="times">'+html+'</div>';
+}
+
+/* ── HOME ─────────────────────────────────────────────────── */
+function viewHome(){
+  var hero = FILMS.find(function(f){ return f.featured; }) || FILMS[0];
+  var dw = dowIndex(S.date);
+  var dealBanner = "";
+  if (dw === 2) dealBanner = '<span class="pill pill-lamp"><span class="dot"></span>Tuesday — every seat $7.50</span>';
+  else if (dw === 1) dealBanner = '<span class="pill pill-lamp"><span class="dot"></span>Mondays — seniors $7.00</span>';
+
+  var cards = FILMS.map(function(f){
+    return '<article class="card">'
+      + '<a href="#" data-go="film" data-film="'+f.id+'">'+artPlate(f)+'</a>'
+      + '<div class="stack" style="gap:7px">'
+        + '<h3><a href="#" data-go="film" data-film="'+f.id+'">'+esc(f.title)+'</a></h3>'
+        + '<div class="cmeta"><span class="rat">'+f.rating+'</span><span>'+f.runtime+' min</span><span>·</span><span>'+f.genres[0]+'</span></div>'
+      + '</div>'
+      + timeChips(f.id, S.date, 5)
+      + '</article>';
+  }).join("");
+
+  var soonStrip = SOON.slice(0,6).map(function(f){
+    return '<article class="card">'
+      + '<a href="#" data-go="soon">'+artPlate(f, { eyebrow: f.tag || ("Opens " + f.opens) })+'</a>'
+      + '<div class="stack" style="gap:6px">'
+        + '<h3>'+esc(f.title)+'</h3>'
+        + '<div class="cmeta"><span class="rat">'+f.rating+'</span><span>'+f.opens+'</span></div>'
+      + '</div>'
+      + (f.advance ? '<div class="times"><button class="time" data-go="soon">Advance tickets</button></div>' : '')
+      + '</article>';
+  }).join("");
+
+  return ''
+  + '<section class="hero"><div class="wrap"><div class="hero-grid">'
+    + '<div>'
+      + '<p class="eyebrow eyebrow-lamp">Now playing · '+HOUSES[1].name+' · Dolby Atmos</p>'
+      + '<h1>'+esc(hero.title.split(":")[0])+'<em>'+(hero.title.indexOf(":")>-1 ? ":"+hero.title.split(":")[1] : "")+'</em></h1>'
+      + '<div class="hero-meta">'
+        + '<span class="rat">'+hero.rating+'</span>'
+        + '<span class="mono small">'+hero.runtime+' min</span>'
+        + '<span class="mono small">'+hero.genres.join(" · ")+'</span>'
+      + '</div>'
+      + '<p class="lede">'+esc(hero.syn)+'</p>'
+      + '<div class="hero-cta" style="margin-top:32px">'
+        + '<button class="btn btn-lamp btn-lg" data-go="film" data-film="'+hero.id+'">Get tickets</button>'
+        + '<button class="btn btn-ghost btn-lg" data-go="theatre">About the house</button>'
+      + '</div>'
+    + '</div>'
+    + '<div>'+artPlate(hero, { cls:"hero-art" })+'</div>'
+  + '</div></div></section>'
+
+  + '<section class="sec"><div class="wrap">'
+    + '<div class="sec-head">'
+      + '<div><p class="eyebrow">Six screens · every seat reclines · every seat reserved</p>'
+      + '<h2>What&rsquo;s on</h2></div>'
+      + '<div style="text-align:right">'+dealBanner+'</div>'
+    + '</div>'
+    + dateStrip(S.date)
+    + '<p class="small" style="margin:18px 0 30px">'+prettyDate(S.date)+' · tap a time to choose your seats</p>'
+    + '<div class="filmgrid">'+cards+'</div>'
+  + '</div></section>'
+
+  + '<section class="sec"><div class="wrap">'
+    + '<div class="tiles">'
+      + '<div class="tile"><div class="num">6</div><div class="lbl">Auditoriums, each one laser-projected</div></div>'
+      + '<div class="tile"><div class="num">502</div><div class="lbl">Power recliners. There are no bad seats, only better ones</div></div>'
+      + '<div class="tile"><div class="num">1921</div><div class="lbl">The year the first Capitol opened on this block</div></div>'
+      + '<div class="tile"><div class="num">$7.50</div><div class="lbl">Every seat, every age, every Tuesday</div></div>'
+    + '</div>'
+  + '</div></section>'
+
+  + '<section class="sec"><div class="wrap">'
+    + '<div class="sec-head">'
+      + '<div><p class="eyebrow">Booking opens four weeks ahead</p><h2>Coming soon</h2></div>'
+      + '<a href="#" data-go="soon">Full schedule →</a>'
+    + '</div>'
+    + '<div class="filmgrid">'+soonStrip+'</div>'
+  + '</div></section>';
+}
+
+/* ── COMING SOON ──────────────────────────────────────────── */
+function viewSoon(){
+  function grid(list, showTag){
+    return '<div class="filmgrid">' + list.map(function(f){
+      return '<article class="card">'
+        + artPlate(f, { eyebrow: showTag && f.tag ? f.tag : ("Opens " + f.opens) })
+        + '<div class="stack" style="gap:7px">'
+          + '<h3>'+esc(f.title)+'</h3>'
+          + '<div class="cmeta"><span class="rat">'+f.rating+'</span><span>'+f.opens+'</span></div>'
+          + '<p class="small" style="line-height:1.55">'+esc(f.syn)+'</p>'
+        + '</div>'
+        + (f.advance ? '<div class="times"><button class="time" onclick="return false">Advance tickets</button></div>' : '')
+        + '</article>';
+    }).join("") + '</div>';
+  }
+
+  return '<section class="page"><div class="wrap">'
+    + '<p class="eyebrow eyebrow-lamp">September 2026</p>'
+    + '<h1>Coming soon</h1>'
+    + '<p class="lede">Advance tickets go on sale four weeks before opening night. Anything marked <em>advance</em> below is bookable now.</p>'
+
+    + '<div class="sec-head" style="margin-top:56px"><div><p class="eyebrow">New releases</p><h2>Opening this month</h2></div></div>'
+    + grid(SOON, true)
+
+    + '<div class="sec-head" style="margin-top:72px"><div><p class="eyebrow">Restorations, anniversaries and one-night engagements</p><h2>Revivals</h2></div></div>'
+    + grid(REP, true)
+
+    + '<div class="panel" style="margin-top:64px">'
+      + '<h3>Tell me when tickets drop</h3>'
+      + '<p class="small" style="max-width:52ch;margin-bottom:18px">One email a week, on Wednesday, with what opens Friday and what we are bringing back. Nothing else.</p>'
+      + '<div class="f2" style="max-width:520px">'
+        + '<div class="field"><label for="nl">Email</label><input id="nl" type="email" placeholder="you@example.com"></div>'
+        + '<div class="field"><label>&nbsp;</label><button class="btn btn-lamp" onclick="return false">Subscribe</button></div>'
+      + '</div>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── FILM DETAIL ──────────────────────────────────────────── */
+function viewFilm(){
+  var f = getFilm(S.filmId);
+  if (!f) return viewHome();
+  var shows = showsFor(f.id, S.date);
+  var std = shows.filter(function(s){ return s.fmt === "Standard"; });
+  var d3  = shows.filter(function(s){ return s.fmt === "3D"; });
+
+  function block(title, list, note){
+    if (!list.length) return "";
+    return '<div class="showblock">'
+      + '<div class="showblock-head"><h4>'+title+'</h4>'+(note?'<span class="xsmall">'+note+'</span>':'')+'</div>'
+      + '<div class="showrow">' + list.map(function(s){
+          var left = Math.round(HOUSES[s.house].seats * (1 - s.occ));
+          var gone = passed(s);
+          var lvl = left < 12
+            ? '<div class="sl" style="color:var(--warn)">'+left+' seats left</div>'
+            : (left < 34 ? '<div class="sl" style="color:var(--lamp)">'+left+' seats left</div>'
+                         : '<div class="sl" style="color:var(--dust-dim)">'+left+' seats</div>');
+          return '<button class="showcard"'+(gone?' disabled':'')+' data-show="'+esc(s.id)+'">'
+            + '<div class="st">'+fmtTime(s.mins)+'</div>'
+            + '<div class="sh">'+HOUSES[s.house].name+(s.mat?' · Matinee':'')+'</div>'
+            + (gone ? '<div class="sl" style="color:var(--dust-dim)">Started</div>' : lvl)
+            + '</button>';
+        }).join("")
+      + '</div></div>';
+  }
+
+  return '<section class="detail"><div class="wrap">'
+    + '<button class="bb-back" data-go="home" style="margin-bottom:32px">'
+      + '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + 'All films</button>'
+    + '<div class="detail-grid">'
+      + '<div>' + artPlate(f) + '</div>'
+      + '<div>'
+        + '<p class="eyebrow eyebrow-lamp">Now playing · opened '+f.opened+'</p>'
+        + '<h1>'+esc(f.title)+'</h1>'
+        + '<div class="detail-meta">'
+          + '<span class="rat">'+f.rating+'</span>'
+          + '<span>'+f.runtime+' min</span><span>·</span>'
+          + '<span>'+f.genres.join(", ")+'</span><span>·</span>'
+          + '<span>'+f.formats.join(" / ")+'</span>'
+        + '</div>'
+        + '<p class="lede">'+esc(f.syn)+'</p>'
+        + '<dl class="crew">'
+          + '<dt>Director</dt><dd>'+esc(f.dir)+'</dd>'
+          + '<dt>Cast</dt><dd>'+f.cast.map(esc).join(", ")+'</dd>'
+          + '<dt>Rating</dt><dd>'+f.rating+' — British Columbia classification</dd>'
+        + '</dl>'
+
+        + '<div style="margin-top:48px">'
+          + '<p class="eyebrow" style="margin-bottom:14px">Choose a day</p>'
+          + dateStrip(S.date, f.id)
+        + '</div>'
+        + block("Standard", std, "All seats reserved power recliners")
+        + block("3D", d3, "+$3.00 per ticket · glasses included")
+        + (shows.length ? "" : '<div class="showblock"><p class="small">No screenings on '+prettyDate(S.date)+'. Try another day.</p></div>')
+
+        + '<div class="panel" style="margin-top:44px">'
+          + '<h3>Book the whole house</h3>'
+          + '<p class="small" style="max-width:54ch">Any title on this page can be rented as a private screening for up to 128 guests.</p>'
+          + '<button class="btn btn-ghost" style="margin-top:16px" data-go="private">Private screenings</button>'
+        + '</div>'
+      + '</div>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── SEAT SELECTION ───────────────────────────────────────── */
+function viewSeats(){
+  var show = getShow(S.showId), film = getFilm(S.filmId);
+  var hall = buildHall(show.house);
+  var nRows = hall.rows.length;
+  var entering = !hallAnimated;
+  hallAnimated = true;
+
+  var rowsHtml = hall.rows.map(function(row, ri){
+    var isPrimeRow = false;
+    var seatsHtml = ["", ""]; // left block, right block
+    row.seats.forEach(function(seat, si){
+      var id = row.label + seat.n;
+      var score = sightline(ri, nRows, si, row.count);
+      if (score >= 78) isPrimeRow = true;
+      var state = seatState(show, row.label, seat.n);
+      var picked = S.seats.some(function(x){ return x.id === id; });
+
+      // Arc: row ends sit further from the screen, and every seat turns to face it.
+      // Depth stays under the 13px row gap so curved rows never collide.
+      var c = row.count > 1 ? (si - (row.count-1)/2) / ((row.count-1)/2) : 0;
+      var depth = 4 + ri * 0.9;
+      var ty = (c*c * depth).toFixed(1);
+      var rot = (c * 2.2).toFixed(1);
+
+      var cls = "seat";
+      if (seat.kind === "wc") cls += " wc";
+      if (seat.kind === "loveL") cls += " loveL";
+      if (seat.kind === "loveR") cls += " loveR";
+      if (state === "sold") cls += " sold";
+      if (picked) cls += " pick";
+
+      var label = seat.kind === "wc" ? "Wheelchair position"
+                : seat.kind === "comp" ? "Companion seat"
+                : (seat.kind === "loveL" || seat.kind === "loveR") ? "Loveseat recliner"
+                : "Power recliner";
+
+      var btn = '<button class="'+cls+'"'
+        + ' style="--ty:'+ty+'px;--rot:'+rot+'deg;transform:translateY('+ty+'px) rotate('+rot+'deg)"'
+        + ' data-seat="'+id+'" data-kind="'+seat.kind+'" data-score="'+score+'" data-label="'+label+'"'
+        + ' data-state="'+state+'"'
+        + ' aria-label="Row '+row.label+' seat '+seat.n+', '+label+', '+(state==="sold"?"unavailable":"available")+'"'
+        + ' aria-pressed="'+(picked?"true":"false")+'"'
+        + (state === "sold" ? ' disabled' : '')
+        + '></button>';
+
+      seatsHtml[ si < row.count/2 ? 0 : 1 ] += btn;
+    });
+
+    return '<div class="seatrow'+(isPrimeRow?" prime":"")+' anim-row" style="animation-delay:'+(entering ? ri*55 : 0)+'ms">'
+      + '<span class="rowlbl">'+row.label+'</span>'
+      + '<div class="blk">'+seatsHtml[0]+'</div>'
+      + '<div class="aisle"></div>'
+      + '<div class="blk">'+seatsHtml[1]+'</div>'
+      + '<span class="rowlbl">'+row.label+'</span>'
+      + '</div>';
+  }).join("");
+
+  var free = 0;
+  hall.rows.forEach(function(row){
+    row.seats.forEach(function(s){ if (seatState(show, row.label, s.n) === "free") free++; });
+  });
+
+  return '<div class="booking"><div class="wrap"><div class="book-grid">'
+
+  + '<div>'
+    + '<div class="partybar">'
+      + '<div><p class="eyebrow" style="margin-bottom:7px">How many</p>'
+        + '<div class="stepper">'
+          + '<button data-party="-1" aria-label="One fewer ticket"'+(S.party<=1?" disabled":"")+'>−</button>'
+          + '<span class="val">'+S.party+'</span>'
+          + '<button data-party="1" aria-label="One more ticket"'+(S.party>=8?" disabled":"")+'>+</button>'
+        + '</div>'
+      + '</div>'
+      + '<div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap">'
+        + '<button class="btn btn-ghost" id="autopick">Best available</button>'
+        + '<button class="btn btn-ghost" id="clearseats"'+(S.seats.length?"":" disabled")+'>Clear</button>'
+      + '</div>'
+    + '</div>'
+
+    + '<p class="small" style="margin-bottom:20px">'
+      + '<strong style="color:var(--bone)">'+free+' of '+hall.total+'</strong> seats open in '+hall.name+'. '
+      + 'Tap any seat and we will take the '+S.party+' best together from there.</p>'
+
+    + '<div class="hall'+(entering ? " hall-enter" : "")+'">'
+      + '<div class="house">'
+        + '<div class="spill"></div>'
+        + '<div class="screen"></div>'
+        + '<div class="screen-lbl">Screen</div>'
+        + '<div class="rows" id="rows">'+rowsHtml+'</div>'
+      + '</div>'
+    + '</div>'
+
+    + '<div class="legend">'
+      + '<span class="leg"><i class="av"></i>Available</span>'
+      + '<span class="leg"><i class="pk"></i>Yours</span>'
+      + '<span class="leg"><i class="sd"></i>Taken</span>'
+      + '<span class="leg"><i class="lv"></i>Loveseat — no centre armrest</span>'
+      + '<span class="leg"><i class="ac"></i>Wheelchair &amp; companion</span>'
+      + '<span class="leg"><i class="pr"></i>Best sightlines</span>'
+    + '</div>'
+  + '</div>'
+
+  + renderRail("seats")
+  + '</div></div></div>';
+}
+
+/* ── ORDER MATHS ──────────────────────────────────────────── */
+function orderTotals(){
+  var show = getShow(S.showId);
+  var tickets = S.seats.map(function(s){
+    var t = S.types[s.id] || "adult";
+    var p = priceFor(t, show);
+    return { seat: s, type: t, price: p.amount, rule: p.rule };
+  });
+  var ticketSub = tickets.reduce(function(a,b){ return a + b.price; }, 0);
+  var fees = tickets.length * PRICES.fee;
+
+  var addonList = [];
+  for (var id in S.addons){
+    if (!S.addons[id]) continue;
+    var item = CONCESSIONS.find(function(c){ return c.id === id; });
+    if (item) addonList.push({ item: item, qty: S.addons[id], line: item.price * S.addons[id] });
+  }
+  var addonSub = addonList.reduce(function(a,b){ return a + b.line; }, 0);
+  var delivery = (S.deliver && addonSub > 0) ? 2.50 : 0;
+
+  var sub = ticketSub + fees + addonSub + delivery;
+  var gst = sub * 0.05;
+  var total = sub + gst;
+  var points = Math.round(total * 10);
+
+  return { tickets:tickets, ticketSub:ticketSub, fees:fees, addonList:addonList,
+           addonSub:addonSub, delivery:delivery, sub:sub, gst:gst, total:total, points:points };
+}
+
+/* ── SIDE RAIL ────────────────────────────────────────────── */
+function renderRail(stage){
+  var show = getShow(S.showId), film = getFilm(S.filmId);
+  var T = orderTotals();
+  var dw = dowIndex(show.date);
+
+  var seatRows = S.seats.length
+    ? S.seats.map(function(s){
+        var t = S.types[s.id] || "adult";
+        var p = priceFor(t, show);
+        return '<div class="seatchip">'
+          + '<span class="sid">'+s.id+'</span>'
+          + '<select data-type="'+s.id+'" aria-label="Ticket type for seat '+s.id+'">'
+            + Object.keys(TYPE_LABEL).map(function(k){
+                return '<option value="'+k+'"'+(k===t?" selected":"")+'>'+TYPE_LABEL[k]+'</option>';
+              }).join("")
+          + '</select>'
+          + '<span class="px">'+money(p.amount)+'</span>'
+          + '<button class="rm" data-drop="'+s.id+'" aria-label="Remove seat '+s.id+'">×</button>'
+          + '</div>';
+      }).join("")
+    : '<div class="empty">No seats yet.<br>Pick '+S.party+' on the map, or let us choose.</div>';
+
+  var ruleNote = "";
+  if (S.seats.length){
+    var rules = {};
+    T.tickets.forEach(function(t){ if (t.rule.indexOf("Adult")<0 && t.rule.indexOf("Senior (")<0 && t.rule.indexOf("Child")<0) rules[t.rule] = 1; });
+    var rs = Object.keys(rules);
+    if (rs.length) ruleNote = '<div class="ruleflag"><span class="dot"></span>'+rs.join(" · ")+' applied</div>';
+  }
+
+  var cta = "";
+  if (stage === "seats"){
+    var ready = S.seats.length > 0;
+    cta = '<button class="btn btn-lamp btn-block btn-lg" id="toaddons"'+(ready?"":" disabled")+'>'
+        + (ready ? "Continue — " + money(T.total) : "Choose "+S.party+" seat"+(S.party>1?"s":"")) + '</button>'
+        + '<p class="xsmall" style="text-align:center;margin-top:12px">Seats are held for 7 minutes. Nothing is charged yet.</p>';
+  } else if (stage === "addons"){
+    cta = '<button class="btn btn-lamp btn-block btn-lg" id="tocheckout">Continue to payment — '+money(T.total)+'</button>'
+        + '<button class="btn btn-ghost btn-block" style="margin-top:10px" data-go="seats">Back to seats</button>';
+  } else {
+    cta = '<button class="btn btn-lamp btn-block btn-lg" id="pay">Pay '+money(T.total)+'</button>'
+        + '<p class="xsmall" style="text-align:center;margin-top:12px">Tickets arrive by email within a minute.</p>';
+  }
+
+  var addonLines = T.addonList.map(function(a){
+    return '<div class="li"><span class="n">'+a.qty+'× '+esc(a.item.name)+'</span><span class="v">'+money(a.line)+'</span></div>';
+  }).join("");
+
+  // The collapsed sheet has to answer "what am I buying and what does it cost"
+  // on one line, because on a phone that line is all you can see.
+  var barTitle = S.seats.length
+    ? S.seats.length + (S.seats.length === 1 ? " seat" : " seats")
+    : "No seats yet";
+  var barSub = S.seats.length
+    ? S.seats.map(function(s){ return s.id; }).join(", ")
+    : "Choose " + S.party + " on the map";
+
+  return (S.railOpen ? '<div class="sheet-scrim" data-sheet="close"></div>' : '')
+    + '<aside class="rail'+(S.railOpen ? " open" : "")+'">'
+    + '<button class="rail-bar" data-sheet="toggle" aria-expanded="'+(S.railOpen?"true":"false")+'">'
+      + '<span class="rb-txt"><b>'+barTitle+'</b><span>'+esc(barSub)+'</span></span>'
+      + '<span class="rb-total">'+money(T.total)+'</span>'
+      + '<svg class="rb-chev" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">'
+        + '<path d="M3 10l5-5 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    + '</button>'
+    + '<div class="rail-head">'
+      + '<div class="t">'+esc(film.title)+'</div>'
+      + '<div class="s">'+prettyDate(show.date)+' · '+fmtTime(show.mins)+'</div>'
+      + '<div class="s">'+HOUSES[show.house].name+' · '+show.fmt+(show.mat?" · Matinee":"")+'</div>'
+    + '</div>'
+    + '<div class="rail-body">'
+      + '<p class="eyebrow">Your seats</p>'
+      + '<div class="stack" style="gap:8px">'+seatRows+'</div>'
+      + ruleNote
+      + (S.seats.length ? '<div class="stack" style="gap:11px;padding-top:8px;border-top:1px solid var(--edge-soft)">'
+          + '<div class="li"><span class="n">Tickets ('+S.seats.length+')</span><span class="v">'+money(T.ticketSub)+'</span></div>'
+          + (T.addonSub ? addonLines : "")
+          + (T.delivery ? '<div class="li"><span class="n">Delivery to seat</span><span class="v">'+money(T.delivery)+'</span></div>' : "")
+          + '<div class="li"><span class="n">Online booking fee</span><span class="v">'+money(T.fees)+'</span></div>'
+          + '<div class="li"><span class="n">GST (5%)</span><span class="v">'+money(T.gst)+'</span></div>'
+          + '<div class="li total"><span class="n">Total</span><span class="v">'+money(T.total)+'</span></div>'
+        + '</div>' : "")
+    + '</div>'
+    + '<div class="rail-foot">'+cta+'</div>'
+  + '</aside>';
+}
+
+/* ── CONCESSIONS ──────────────────────────────────────────── */
+function viewAddons(){
+  var show = getShow(S.showId);
+  var cards = CONCESSIONS.map(function(c){
+    var qty = S.addons[c.id] || 0;
+    var badges = "";
+    if (c.best) badges += '<span class="pill pill-lamp">Best value</span>';
+    if (c.local) badges += '<span class="pill pill-good">Made in Victoria</span>';
+    if (c.age) badges += '<span class="pill pill-warn">19+</span>';
+    return '<div class="conc'+(qty?" has":"")+'">'
+      + '<div class="conc-top"><h4>'+esc(c.name)+'</h4><span class="cp">'+money(c.price)+'</span></div>'
+      + (badges ? '<div style="display:flex;gap:6px;flex-wrap:wrap">'+badges+'</div>' : '')
+      + '<p class="cd">'+esc(c.desc)+'</p>'
+      + '<div class="cf">'
+        + '<span class="xsmall">'+c.cat+'</span>'
+        + '<div class="stepper">'
+          + '<button data-conc="'+c.id+'" data-d="-1" aria-label="One fewer '+esc(c.name)+'"'+(qty?"":" disabled")+'>−</button>'
+          + '<span class="val">'+qty+'</span>'
+          + '<button data-conc="'+c.id+'" data-d="1" aria-label="One more '+esc(c.name)+'">+</button>'
+        + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+
+  var anyAddons = Object.keys(S.addons).some(function(k){ return S.addons[k] > 0; });
+
+  return '<div class="booking"><div class="wrap"><div class="book-grid">'
+  + '<div>'
+    + '<p class="eyebrow eyebrow-lamp">Optional</p>'
+    + '<h2 class="serif" style="font-size:38px;line-height:1.05;margin:8px 0 12px">Order ahead</h2>'
+    + '<p class="lede" style="margin-bottom:32px">Skip the counter. Everything is made when the trailers start, not before, so the popcorn is hot when you get it.</p>'
+    + '<div class="conc-grid">'+cards+'</div>'
+
+    + '<div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">'
+      + '<button class="toggle'+(S.deliver?" on":"")+'" id="deliver"'+(anyAddons?"":" disabled style=\"opacity:.45;cursor:not-allowed\"")+'>'
+        + '<span class="sw"></span>'
+        + '<span><span class="tl">Bring it to my seat</span><br><span class="td">A server finds you during the trailers. Adds $2.50.</span></span>'
+      + '</button>'
+      + '<p class="xsmall">Otherwise your order waits at the express counter under your order number — usually ready before you reach the top of the ramp.</p>'
+    + '</div>'
+  + '</div>'
+  + renderRail("addons")
+  + '</div></div></div>';
+}
+
+/* ── CHECKOUT ─────────────────────────────────────────────── */
+function viewCheckout(){
+  var T = orderTotals();
+  return '<div class="booking"><div class="wrap"><div class="book-grid">'
+  + '<div>'
+    + '<p class="eyebrow eyebrow-lamp">Step 3 of 3</p>'
+    + '<h2 class="serif" style="font-size:38px;line-height:1.05;margin:8px 0 32px">Pay</h2>'
+
+    + '<div class="panel">'
+      + '<h3>Express</h3>'
+      + '<div class="express">'
+        + '<button class="paybtn" id="applepay">'
+          + '<svg width="16" height="19" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true"><path d="M13.6 10.6c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.7.8-3.3.8-.7 0-1.7-.8-2.8-.8C4.7 5.6 3.3 6.5 2.6 7.9 1.1 10.6 2.2 14.6 3.6 16.8c.7 1.1 1.6 2.3 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 1.9-1.1 2.6-2.2.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.2-.9-2.1-3.7zM11.4 4.1c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>'
+          + 'Pay</button>'
+        + '<button class="paybtn g" id="gpay">'
+          + '<svg width="17" height="17" viewBox="0 0 18 18" aria-hidden="true"><path fill="#EA4335" d="M9 3.5c1.3 0 2.2.6 2.7 1l2-1.9C12.5 1.4 10.9.7 9 .7 6.2.7 3.8 2.3 2.6 4.7l2.3 1.8C5.5 4.7 7.1 3.5 9 3.5z"/><path fill="#4285F4" d="M17.1 9.2c0-.6-.1-1.1-.2-1.6H9v3.1h4.6c-.2 1-.8 1.9-1.7 2.5l2.3 1.8c1.3-1.2 2.1-3 2.1-5.2z"/><path fill="#FBBC05" d="M4.9 10.7c-.2-.5-.3-1.1-.3-1.7s.1-1.2.3-1.7L2.6 5.5C2 6.6 1.7 7.8 1.7 9s.3 2.4.9 3.5l2.3-1.8z"/><path fill="#34A853" d="M9 17.3c2.3 0 4.3-.8 5.7-2.1l-2.3-1.8c-.6.4-1.5.7-2.6.7-1.9 0-3.5-1.2-4.1-2.9l-2.3 1.8c1.2 2.4 3.6 4.3 6.6 4.3z"/></svg>'
+          + 'Pay</button>'
+      + '</div>'
+      + '<div class="orline">or pay by card</div>'
+      + '<div class="stack" style="gap:16px">'
+        + '<div class="field"><label for="cnum">Card number</label><input id="cnum" placeholder="4242 4242 4242 4242" inputmode="numeric"></div>'
+        + '<div class="f3">'
+          + '<div class="field"><label for="cexp">Expiry</label><input id="cexp" placeholder="MM / YY" inputmode="numeric"></div>'
+          + '<div class="field"><label for="ccvc">CVC</label><input id="ccvc" placeholder="123" inputmode="numeric"></div>'
+          + '<div class="field"><label for="cpc">Postal code</label><input id="cpc" placeholder="V8W 1M1"></div>'
+        + '</div>'
+      + '</div>'
+    + '</div>'
+
+    + '<div class="panel">'
+      + '<h3>Where to send the tickets</h3>'
+      + '<div class="f2">'
+        + '<div class="field"><label for="em">Email</label><input id="em" type="email" placeholder="you@example.com"></div>'
+        + '<div class="field"><label for="ph">Mobile (optional)</label><input id="ph" type="tel" placeholder="250 555 0134"></div>'
+      + '</div>'
+      + '<p class="xsmall" style="margin-top:14px">Your tickets are a single code for the whole party. No printing, no app.</p>'
+    + '</div>'
+
+    + '<div class="panel">'
+      + '<h3>Rewards Club</h3>'
+      + '<div class="f2">'
+        + '<div class="field"><label for="cc">Member number (optional)</label><input id="cc" placeholder="C6-000000"></div>'
+        + '<div class="field"><label for="pc">Promo code</label><input id="pc" placeholder="Enter a code"></div>'
+      + '</div>'
+      + '<div class="ruleflag" style="margin-top:16px"><span class="dot"></span>This order earns '+T.points+' points. 15,000 points redeems for a free admission.</div>'
+    + '</div>'
+
+    + '<p class="xsmall" style="margin-top:24px;max-width:60ch;line-height:1.7">'
+      + 'Refunds are available up to 60 minutes before the showtime on your ticket, for the price of the ticket only \u2014 service and convenience fees are non-refundable. '
+      + 'By paying you agree to our terms of sale and privacy policy.</p>'
+  + '</div>'
+  + renderRail("checkout")
+  + '</div></div></div>';
+}
+
+/* ── CONFIRMATION ─────────────────────────────────────────── */
+function qrGrid(seed){
+  var cells = "";
+  for (var y=0; y<25; y++){
+    for (var x=0; x<25; x++){
+      var on;
+      if ((x<7&&y<7)||(x>17&&y<7)||(x<7&&y>17)){
+        var lx = x>17 ? x-18 : x, ly = y>17 ? y-18 : y;
+        var edge = (lx===0||lx===6||ly===0||ly===6);
+        var core = (lx>=2&&lx<=4&&ly>=2&&ly<=4);
+        on = edge || core;
+      } else {
+        on = rnd(seed + ":" + x + ":" + y) > 0.52;
+      }
+      cells += '<span'+(on?' class="on"':'')+'></span>';
+    }
+  }
+  return '<div class="qr" role="img" aria-label="Ticket QR code">'+cells+'</div>';
+}
+
+function viewConfirm(){
+  var o = S.order;
+  var film = getFilm(o.filmId), show = getShow(o.showId);
+  var seatList = o.seats.map(function(s){ return s.id; }).join(", ");
+  var addonCount = o.addonList.reduce(function(a,b){ return a + b.qty; }, 0);
+
+  return '<div class="booking"><div class="wrap" style="padding-top:64px;max-width:760px">'
+    + '<div style="text-align:center;margin-bottom:44px">'
+      + '<div style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:rgba(134,184,127,.12);box-shadow:inset 0 0 0 1px rgba(134,184,127,.4);margin-bottom:20px">'
+        + '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5" stroke="#86B87F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + '</div>'
+      + '<p class="eyebrow eyebrow-lamp">Order '+o.number+'</p>'
+      + '<h2 class="serif" style="font-size:42px;line-height:1.04;margin:10px 0 12px">You&rsquo;re in.</h2>'
+      + '<p class="small">Sent to '+esc(o.email)+'. Show this code at the door — one scan covers the whole party.</p>'
+    + '</div>'
+
+    + '<div class="pass anim-in">'
+      + '<div class="pass-top">'
+        + lockup(24)
+        + '<h3>'+esc(film.title)+'</h3>'
+        + '<p class="mono small">'+prettyDate(show.date)+' · '+fmtTime(show.mins)+'</p>'
+      + '</div>'
+      + '<div class="pass-body">'
+        + qrGrid(o.number)
+        + '<div class="perf"></div>'
+        + '<div class="pass-facts">'
+          + '<div class="fact"><div class="k">Auditorium</div><div class="v">'+HOUSES[show.house].name+'</div></div>'
+          + '<div class="fact"><div class="k">Seats</div><div class="v">'+seatList+'</div></div>'
+          + '<div class="fact"><div class="k">Admits</div><div class="v">'+o.seats.length+'</div></div>'
+          + '<div class="fact"><div class="k">Paid</div><div class="v">'+money(o.total)+'</div></div>'
+        + '</div>'
+        + (addonCount ? '<div class="perf"></div>'
+            + '<div><div class="k xsmall" style="letter-spacing:.16em;text-transform:uppercase;font-weight:600">Concessions — pickup '+o.pickup+'</div>'
+            + '<p class="small" style="margin-top:6px">'
+            + o.addonList.map(function(a){ return a.qty+"× "+esc(a.item.name); }).join(" · ")
+            + (o.deliver ? ' · brought to your seat' : ' · express counter')
+            + '</p></div>' : '')
+      + '</div>'
+    + '</div>'
+
+    + '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px">'
+      + '<button class="btn" onclick="return false">Add to Apple Wallet</button>'
+      + '<button class="btn btn-ghost" onclick="return false">Add to calendar</button>'
+      + '<button class="btn btn-ghost" data-go="home">Back to what&rsquo;s on</button>'
+    + '</div>'
+
+    + '<div class="panel" style="margin-top:48px">'
+      + '<h3>Before you come</h3>'
+      + '<div class="prose" style="font-size:14.5px">'
+        + '<p>Doors open 20 minutes before the time on your ticket. Trailers run about 12 minutes, so the feature starts around '
+        + fmtTime(show.mins + 12) + '.</p>'
+        + '<p>Parking is easiest in the View Street Parkade, half a block north — free after 6 PM and on Sundays.</p>'
+        + '<p>Need a refund? Call the theatre on 778-265-9749 with your confirmation number before '+fmtTime(show.mins - 60)+' \u2014 60 minutes before showtime. Ticket price only; booking fees are non-refundable.</p>'
+      + '</div>'
+    + '</div>'
+  + '</div></div>';
+}
+
+/* ── PRICING ──────────────────────────────────────────────── */
+function viewPricing(){
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">Every seat is a reserved power recliner</p>'
+    + '<h1>Ticket pricing</h1>'
+    + '<p class="lede">No premium seat surcharge, no "recliner upgrade", no service tier. The seat you pick costs what everyone else&rsquo;s costs.</p>'
+
+    + '<h2>Standard admission</h2>'
+    + '<table class="ptable"><thead><tr><th>Admission</th><th>Price</th></tr></thead><tbody>'
+      + '<tr><td>Adult<span class="sub">Ages 14 to 64</span></td><td>$12.00</td></tr>'
+      + '<tr><td>Senior<span class="sub">65 and over</span></td><td>$10.50</td></tr>'
+      + '<tr><td>Child<span class="sub">Ages 3 to 13</span></td><td>$10.00</td></tr>'
+      + '<tr><td>Under 3<span class="sub">On a lap, at a non-3D screening</span></td><td>Free</td></tr>'
+    + '</tbody></table>'
+
+    + '<h2>When it&rsquo;s cheaper</h2>'
+    + '<table class="ptable"><thead><tr><th>Discount</th><th>Price</th></tr></thead><tbody>'
+      + '<tr><td>Matinee<span class="sub">Any screening starting before 4:00 PM, any age</span></td><td>$10.00</td></tr>'
+      + '<tr><td>Tuesdays<span class="sub">All ages, all day, every screening. Book ahead — this is our busiest night</span></td><td>$7.50</td></tr>'
+      + '<tr><td>Seniors Monday<span class="sub">65 and over, all day Monday</span></td><td>$7.00</td></tr>'
+    + '</tbody></table>'
+    + '<p class="small" style="margin-top:16px">Discounts do not stack. We apply the lowest price you qualify for automatically at checkout — you will see which rule was used before you pay.</p>'
+
+    + '<h2>Extras</h2>'
+    + '<table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>'
+      + '<tr><td>3D surcharge<span class="sub">Per ticket. Glasses included and yours to keep</span></td><td>+$3.00</td></tr>'
+      + '<tr><td>Online booking fee<span class="sub">Per ticket. Nothing extra at the box office window</span></td><td>+$1.50</td></tr>'
+      + '<tr><td>Deliver concessions to your seat<span class="sub">Per order</span></td><td>+$2.50</td></tr>'
+    + '</tbody></table>'
+    + '<p class="small" style="margin-top:16px">GST applies. Prices in Canadian dollars.</p>'
+
+    + '<div class="panel" style="margin-top:52px">'
+      + '<h3>Rewards Club</h3>'
+      + '<p class="prose" style="font-size:14.5px">Free to join, and there is no card — we look you up by email. Earn points on tickets and concessions; at <strong>15,000 points</strong> you can redeem for a free admission, valid on any screening that is not a no-pass engagement. Reward dollars expire 60 days after they are earned, so spend them.</p>'
+      + '<button class="btn btn-lamp" style="margin-top:20px" onclick="return false">Join the Rewards Club</button>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── THEATRE / ABOUT ──────────────────────────────────────── */
+function viewTheatre(){
+  var houseRows = Object.keys(HOUSES).map(function(n){
+    var h = HOUSES[n];
+    return '<tr><td>'+h.name+'<span class="sub">'+h.note+'</span></td><td>'+h.seats+' seats</td></tr>';
+  }).join("");
+
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">805 Yates Street</p>'
+    + '<h1>A building that kept getting rescued</h1>'
+    + '<div class="prose">'
+      + '<p>The first Capitol opened on this block in <strong>1921</strong> — a 1,400-seat picture palace with an orchestra pit. It came down in 1980. What replaced it, a year later, was Victoria&rsquo;s first multiplex: six screens, a winding internal ramp instead of stairs, and a brick-and-glass front that nobody has ever quite decided how to feel about.</p>'
+      + '<p>Empire closed it in <strong>2013</strong>. For three years the Capitol sat dark in the middle of downtown, which is a strange thing to walk past every day.</p>'
+      + '<p>It reopened on <strong>4 November 2016</strong> under Golin Cinemas — new carpet, new paint, laser projectors, and the decision that made the difference: every seat in the building was pulled out and replaced with a power recliner. That dropped capacity from roughly 1,685 to <strong>502</strong>. Two thirds of the seats went in a skip so the remaining third could be worth sitting in.</p>'
+      + '<p>We are independently run. We are not a chain, we do not have a loyalty app that wants your location, and we will still put on a subtitled French comedy in House 5 on a Tuesday because someone should.</p>'
+    + '</div>'
+
+    + '<h2>The six houses</h2>'
+    + '<table class="ptable"><thead><tr><th>Auditorium</th><th>Capacity</th></tr></thead><tbody>'
+      + houseRows
+      + '<tr><td><strong style="color:var(--bone)">Total</strong></td><td>502 seats</td></tr>'
+    + '</tbody></table>'
+    + '<p class="small" style="margin-top:16px">Every auditorium has wheelchair positions with companion seating on the cross-aisle, assistive listening receivers, and closed-caption devices available at the box office at no charge.</p>'
+
+    + '<h2>What we run</h2>'
+    + '<div class="prose">'
+      + '<p>First-run releases across all six screens, plus a standing commitment to three things a chain would drop: subtitled international films, restorations and anniversary presentations, and family matinees on weekend mornings at the child rate for everyone.</p>'
+    + '</div>'
+
+    + '<div class="tiles" style="margin-top:48px">'
+      + '<div class="tile"><div class="num">1921</div><div class="lbl">First Capitol opens</div></div>'
+      + '<div class="tile"><div class="num">1981</div><div class="lbl">Victoria&rsquo;s first multiplex opens on the site</div></div>'
+      + '<div class="tile"><div class="num">2013</div><div class="lbl">Closed. Dark for three years</div></div>'
+      + '<div class="tile"><div class="num">2016</div><div class="lbl">Reopened with 502 power recliners</div></div>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── VISIT / CONTACT / MAP ────────────────────────────────── */
+function viewVisit(){
+  return '<section class="page"><div class="wrap">'
+    + '<p class="eyebrow eyebrow-lamp">Downtown Victoria</p>'
+    + '<h1>Visit</h1>'
+    + '<div class="visitgrid">'
+
+    + '<div>'
+      + '<div class="mapbox">'
+        + '<svg viewBox="0 0 520 360" role="img" aria-label="Map of 805 Yates Street, Victoria">'
+          + '<rect width="520" height="360" fill="#0E0C0B"/>'
+          + '<g stroke="#241F1C" stroke-width="26" stroke-linecap="square">'
+            + '<line x1="0" y1="96" x2="520" y2="96"/>'
+            + '<line x1="0" y1="200" x2="520" y2="200"/>'
+            + '<line x1="0" y1="300" x2="520" y2="300"/>'
+            + '<line x1="120" y1="0" x2="120" y2="360"/>'
+            + '<line x1="270" y1="0" x2="270" y2="360"/>'
+            + '<line x1="410" y1="0" x2="410" y2="360"/>'
+          + '</g>'
+          + '<g fill="#6B6560" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1.4">'
+            + '<text x="14" y="92">VIEW ST</text>'
+            + '<text x="14" y="196">YATES ST</text>'
+            + '<text x="14" y="296">JOHNSON ST</text>'
+            + '<text x="128" y="352" transform="rotate(-90 128 352)">BLANSHARD</text>'
+            + '<text x="278" y="352" transform="rotate(-90 278 352)">QUADRA</text>'
+            + '<text x="418" y="352" transform="rotate(-90 418 352)">VANCOUVER</text>'
+          + '</g>'
+          + '<rect x="180" y="118" width="76" height="58" fill="#1A1512" stroke="#2E2724"/>'
+          + '<text x="218" y="152" fill="#6B6560" font-family="Archivo, sans-serif" font-size="9" text-anchor="middle" letter-spacing="1">PARKADE</text>'
+          + '<circle cx="196" cy="200" r="30" fill="rgba(233,180,76,.14)"/>'
+          + '<circle cx="196" cy="200" r="9" fill="#E9B44C"/>'
+          + '<circle cx="196" cy="200" r="15" fill="none" stroke="#E9B44C" stroke-width="1.2" opacity=".55"/>'
+          + '<text x="196" y="245" fill="#F2EDE4" font-family="Archivo, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" letter-spacing="1.6">CAPITOL 6</text>'
+          + '<text x="196" y="261" fill="#9A9188" font-family="DM Mono, monospace" font-size="9.5" text-anchor="middle">805 YATES ST</text>'
+        + '</svg>'
+      + '</div>'
+      + '<p class="xsmall" style="margin-top:12px">Half a block east of Blanshard, on the north side of Yates.</p>'
+    + '</div>'
+
+    + '<div>'
+      + '<h2 style="margin-top:0">Contact</h2>'
+      + '<table class="ptable"><tbody>'
+        + '<tr><td>Address<span class="sub">805 Yates Street, Victoria, BC V8W 1M1</span></td><td></td></tr>'
+        + '<tr><td>Theatre office<span class="sub">Staffed 10 AM – 6 PM daily</span></td><td>778-265-9749</td></tr>'
+        + '<tr><td>Movie hotline<span class="sub">Recorded showtimes, 24 hours</span></td><td>778-265-7988</td></tr>'
+        + '<tr><td>Box office<span class="sub">Opens 30 minutes before the first screening</span></td><td></td></tr>'
+      + '</tbody></table>'
+
+      + '<h2>Parking</h2>'
+      + '<div class="prose" style="font-size:14.5px">'
+        + '<p>The View Street Parkade is half a block north and is the easiest option — free after 6 PM and all day Sunday. Street parking on Yates is free after 6 PM. We do not validate.</p>'
+      + '</div>'
+
+      + '<h2>Accessibility</h2>'
+      + '<div class="prose" style="font-size:14.5px">'
+        + '<p>Step-free from the street to every auditorium by the internal ramp — no stairs anywhere in the building. Wheelchair positions with adjacent companion seating on the cross-aisle of all six houses, bookable directly on the seat map.</p>'
+        + '<p>Assistive listening receivers and closed-caption devices are free at the box office. Ask about our monthly sensory-friendly matinee: lights up, sound down, and nobody minds if you move around.</p>'
+      + '</div>'
+
+      + '<h2>Work here</h2>'
+      + '<div class="prose" style="font-size:14.5px">'
+        + '<p>We hire projectionists, floor staff and concession staff year-round. Send a note to <strong>jobs@capitol6.ca</strong> or drop a résumé at the box office — we read every one.</p>'
+      + '</div>'
+    + '</div>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── GIFT CARDS ───────────────────────────────────────────── */
+function viewGift(){
+  var amounts = [25, 50, 100];
+  var cards = amounts.map(function(a){
+    return '<div class="gcard">'
+      + lockup(22)
+      + '<div><div class="amt">$'+a+'</div><div class="xsmall" style="margin-top:4px">Never expires</div></div>'
+      + '</div>';
+  }).join("");
+
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">Delivered by email in about a minute</p>'
+    + '<h1>Gift cards</h1>'
+    + '<p class="lede">Good for tickets, popcorn, and the licensed screenings. Redeemable online or at the box office. No expiry date and no monthly fee eating it away — this is a gift, not a product.</p>'
+
+    + '<div class="gcards" style="margin-top:48px">'+cards+'</div>'
+
+    + '<div class="panel" style="margin-top:40px">'
+      + '<h3>Send one</h3>'
+      + '<div class="stack" style="gap:16px">'
+        + '<div class="f3">'
+          + '<div class="field"><label for="ga">Amount</label><select id="ga"><option>$25.00</option><option selected>$50.00</option><option>$100.00</option><option>Other amount</option></select></div>'
+          + '<div class="field"><label for="gn">Their name</label><input id="gn" placeholder="Alex"></div>'
+          + '<div class="field"><label for="ge">Their email</label><input id="ge" type="email" placeholder="alex@example.com"></div>'
+        + '</div>'
+        + '<div class="field"><label for="gm">Message</label><input id="gm" placeholder="Tuesday? Both of us, $15 total."></div>'
+        + '<div><button class="btn btn-lamp" onclick="return false">Continue to payment</button></div>'
+      + '</div>'
+    + '</div>'
+
+    + '<h2>The details</h2>'
+    + '<div class="faq">'
+      + '<details><summary>Does it expire?<span></span></summary><div class="ans">No. There is no expiry date and no dormancy fee. British Columbia law would not let us charge one anyway, but we would not.</div></details>'
+      + '<details><summary>Can it be used online?<span></span></summary><div class="ans">Yes — enter the code in the promo field at checkout. Any unused balance stays on the card.</div></details>'
+      + '<details><summary>Does it cover concessions?<span></span></summary><div class="ans">Yes, including licensed drinks for guests 19 and over with valid ID.</div></details>'
+      + '<details><summary>I lost the email.<span></span></summary><div class="ans">Call the theatre office at 778-265-9749 with the purchaser&rsquo;s name and we will resend it. Cards are registered to the email that bought them.</div></details>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── PRIVATE SCREENINGS ───────────────────────────────────── */
+function viewPrivate(){
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">Any house, any title, any day</p>'
+    + '<h1>Rent the room</h1>'
+    + '<p class="lede">Book an entire auditorium for your group. Anything currently on our screens, most catalogue titles, or your own content off a laptop — a company all-hands, a birthday, a wedding video, a games night on a 40-foot screen.</p>'
+
+    + '<h2>What it costs</h2>'
+    + '<table class="ptable"><thead><tr><th>Booking</th><th>From</th></tr></thead><tbody>'
+      + '<tr><td>Small house<span class="sub">House 5 or 6 · up to 66 guests · weekdays before 5 PM</span></td><td>$350.00</td></tr>'
+      + '<tr><td>Mid house<span class="sub">House 3 or 4 · up to 84 guests</span></td><td>$495.00</td></tr>'
+      + '<tr><td>Large house<span class="sub">House 1 · up to 128 guests · Dolby Atmos</span></td><td>$795.00</td></tr>'
+      + '<tr><td>Evening and weekend premium<span class="sub">After 5 PM, Friday to Sunday</span></td><td>+$200.00</td></tr>'
+      + '<tr><td>Your own content<span class="sub">HDMI or a file we ingest ahead of time. Technician included</span></td><td>+$120.00</td></tr>'
+    + '</tbody></table>'
+    + '<p class="small" style="margin-top:16px">Indicative pricing. Studio licensing for a current release is quoted per title and per headcount — we will tell you the real number within one business day.</p>'
+
+    + '<h2>Included</h2>'
+    + '<div class="prose" style="font-size:15px">'
+      + '<p>Two hours of house time, a technician for the whole booking, the lobby before your screening for arrivals, and a dedicated concession till so your group is not queuing behind a public show. Catering and a licensed bar can be added.</p>'
+    + '</div>'
+
+    + '<div class="panel" style="margin-top:44px">'
+      + '<h3>Ask about a date</h3>'
+      + '<div class="stack" style="gap:16px">'
+        + '<div class="f2">'
+          + '<div class="field"><label for="pn">Name</label><input id="pn" placeholder="Your name"></div>'
+          + '<div class="field"><label for="pe">Email</label><input id="pe" type="email" placeholder="you@example.com"></div>'
+        + '</div>'
+        + '<div class="f3">'
+          + '<div class="field"><label for="pd">Preferred date</label><input id="pd" type="date"></div>'
+          + '<div class="field"><label for="pg">Guests</label><input id="pg" type="number" placeholder="40" min="1" max="128"></div>'
+          + '<div class="field"><label for="ptt">What are we showing?</label><input id="ptt" placeholder="Film title, or your own content"></div>'
+        + '</div>'
+        + '<div><button class="btn btn-lamp" onclick="return false">Send enquiry</button></div>'
+      + '</div>'
+      + '<p class="xsmall" style="margin-top:16px">We answer every enquiry within one business day. Or call the office directly on 778-265-9749.</p>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── FAQ ──────────────────────────────────────────────────── */
+var FAQS = [
+  ["Are all the seats reserved?",
+   "Yes — every one of the 502 seats is a reserved power recliner. You pick it when you book, online or at the box office, and it is yours. There is no rushing in early for a good spot, which was rather the point of taking two thirds of the seats out."],
+  ["When should I arrive?",
+   "Doors open 20 minutes before the time on your ticket. Trailers run about 12 minutes, so if you walk in on the hour for a 7:00 show you will be sitting down before the feature starts. Your seat is held for the whole screening regardless."],
+  ["Do the seats really all recline?",
+   "All of them. Power recliners with a button in the armrest. The back two rows of each house are loveseats — paired recliners with no armrest between them — and they go first, so book ahead if that matters."],
+  ["What does a ticket cost?",
+   "$12.00 adult, $10.50 senior, $10.00 child. $10.00 for anyone at a matinee before 4:00 PM. $7.50 for everyone all day Tuesday, and $7.00 for seniors on Mondays. 3D adds $3.00. We apply the best rate you qualify for automatically."],
+  ["Can I bring my own food?",
+   "No outside food or drink. The concession is a real part of how an independent cinema stays open, and ours is genuinely good — the popcorn is popped through the day, not at open."],
+  ["Can I order food to my seat?",
+   "Yes. Add it while you are booking and pick \"bring it to my seat\" — a server finds you during the trailers for $2.50. Otherwise it waits at the express counter under your order number."],
+  ["Is the building accessible?",
+   "Fully. The internal ramp means there are no stairs anywhere between the street and any of the six auditoriums. Every house has wheelchair positions with companion seating on the cross-aisle, and you book them directly on the seat map. Assistive listening receivers and closed-caption devices are free at the box office."],
+  ["Do you do sensory-friendly screenings?",
+   "One a month, on a Saturday morning. House lights stay up, the sound comes down, and moving around or making noise is completely fine. The schedule is on the Coming Soon page."],
+  ["Can I get a refund or change my booking?",
+   "Up to 60 minutes before the showtime on your ticket. Call the theatre on 778-265-9749 with your confirmation number and the card you paid with. Refunds cover the ticket price only — service and convenience fees are non-refundable. Booked through another ticketing agency? You have to go back to them, before showtime, under their rules."],
+  ["Do you take cash?",
+   "Yes, at the box office and the concession. Online is card, Apple Pay or Google Pay."],
+  ["Are you licensed?",
+   "For selected evening screenings, yes. Look for the licensed marker on the showtime. Valid government ID required, 19 and over."],
+  ["Do children under 3 need a ticket?",
+   "Not if they are sitting on a lap at a non-3D screening. If they want their own recliner — and they usually do — it is a child ticket."],
+  ["Is there parking?",
+   "The View Street Parkade is half a block north, free after 6 PM and all day Sunday. Street parking on Yates is free after 6 PM. We do not validate."],
+  ["Do you still show 35mm?",
+   "Not regularly. All six houses are laser projection now. We bring in a print for the occasional repertory night — those get announced on the Coming Soon page and they sell out."]
+];
+
+function viewFaq(){
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">Everything people ask at the window</p>'
+    + '<h1>Questions</h1>'
+    + '<div class="faq" style="margin-top:40px">'
+      + FAQS.map(function(q){
+          return '<details><summary>'+esc(q[0])+'<span></span></summary><div class="ans">'+esc(q[1])+'</div></details>';
+        }).join("")
+    + '</div>'
+    + '<div class="panel" style="margin-top:48px">'
+      + '<h3>Still stuck?</h3>'
+      + '<p class="small">Call the theatre office on <strong style="color:var(--bone)">778-265-9749</strong>, 10 AM to 6 PM daily. For recorded showtimes any time, the movie hotline is <strong style="color:var(--bone)">778-265-7988</strong>.</p>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ── PRIVACY ──────────────────────────────────────────────── */
+function viewPrivacy(){
+  return '<section class="page"><div class="wrap-tight">'
+    + '<p class="eyebrow eyebrow-lamp">Last updated August 2026</p>'
+    + '<h1>Privacy</h1>'
+    + '<div class="prose">'
+      + '<p>Short version: we collect what we need to sell you a ticket and nothing else, and we do not sell it to anyone.</p>'
+      + '<h2>What we collect</h2>'
+      + '<p>When you book, we take your email address so we can send the ticket, and your card details go straight to our payment processor — they never touch our servers. If you join the Rewards Club we keep your email and your points balance. That is the entire list.</p>'
+      + '<h2>What we do not do</h2>'
+      + '<p>We do not track you across other websites, we do not sell or rent your details, and we do not run advertising pixels on this site. Our only analytics are aggregate page counts with no personal identifiers.</p>'
+      + '<h2>Your choices</h2>'
+      + '<p>Unsubscribe from the weekly email with the link at the bottom of it. To see what we hold on you, or to have it deleted, email <strong>privacy@capitol6.ca</strong> and we will action it within 30 days as required under British Columbia&rsquo;s Personal Information Protection Act.</p>'
+      + '<h2>Cookies</h2>'
+      + '<p>One, and it holds your basket while you book. It expires when you close the tab.</p>'
+    + '</div>'
+  + '</div></section>';
+}
+
+/* ════════════════════════════════════════════════════════════
+   10. SEAT PICKING LOGIC
+   ════════════════════════════════════════════════════════════ */
+
+function hallData(){
+  var show = getShow(S.showId);
+  var hall = buildHall(show.house);
+  return { show: show, hall: hall };
+}
+
+/* Take a contiguous run of `party` seats around the tapped one. */
+function pickAround(rowLabel, seatNo){
+  var d = hallData(), show = d.show, hall = d.hall;
+  var ri = -1;
+  for (var i=0;i<hall.rows.length;i++) if (hall.rows[i].label === rowLabel) ri = i;
+  if (ri < 0) return;
+  var row = hall.rows[ri];
+  var nRows = hall.rows.length;
+
+  var si = seatNo - 1;
+  var free = row.seats.map(function(s){ return seatState(show, row.label, s.n) === "free"; });
+
+  if (!free[si]) return;
+
+  // Grow left and right from the tapped seat, staying inside one half where possible.
+  var chosen = [si];
+  var l = si - 1, r = si + 1;
+  while (chosen.length < S.party && (l >= 0 || r < row.count)){
+    var tookR = false;
+    if (r < row.count && free[r]){ chosen.push(r); r++; tookR = true; }
+    if (chosen.length >= S.party) break;
+    if (l >= 0 && free[l]){ chosen.unshift(l); l--; }
+    else if (!tookR){ if (r < row.count) r++; else if (l >= 0) l--; else break; }
+    if (l < 0 && r >= row.count) break;
+  }
+
+  S.seats = chosen.slice(0, S.party).map(function(idx){
+    var seat = row.seats[idx];
+    return { id: row.label + seat.n, row: row.label, n: seat.n, kind: seat.kind,
+             score: sightline(ri, nRows, idx, row.count) };
+  });
+  S.types = {};
+  S.seats.forEach(function(s){ S.types[s.id] = "adult"; });
+  if (!S.holdEnds) startHold();
+}
+
+/* Best contiguous block in the house by mean sightline. */
+function autoPick(){
+  var d = hallData(), show = d.show, hall = d.hall;
+  var nRows = hall.rows.length;
+  var best = null;
+
+  hall.rows.forEach(function(row, ri){
+    var free = row.seats.map(function(s){ return seatState(show, row.label, s.n) === "free"; });
+    for (var start=0; start + S.party <= row.count; start++){
+      var ok = true, sum = 0;
+      for (var k=0; k<S.party; k++){
+        if (!free[start+k]){ ok = false; break; }
+        sum += sightline(ri, nRows, start+k, row.count);
+      }
+      if (!ok) continue;
+      // keep a party together on one side of the aisle where possible
+      var half = row.count/2;
+      var crosses = (start < half && start + S.party > half);
+      var mean = sum / S.party - (crosses ? 6 : 0);
+      if (!best || mean > best.mean) best = { ri: ri, row: row, start: start, mean: mean };
+    }
+  });
+
+  if (best){
+    S.seats = [];
+    for (var k=0; k<S.party; k++){
+      var idx = best.start + k, seat = best.row.seats[idx];
+      S.seats.push({ id: best.row.label + seat.n, row: best.row.label, n: seat.n, kind: seat.kind,
+                     score: sightline(best.ri, nRows, idx, best.row.count) });
+    }
+    S.types = {};
+    S.seats.forEach(function(s){ S.types[s.id] = "adult"; });
+    if (!S.holdEnds) startHold();
+    toast("Row " + best.row.label + " — the best " + S.party + " together in this house.");
+    return;
+  }
+
+  // Nothing contiguous left. Take the best seats we do have and say so plainly,
+  // rather than dead-ending on a house that is nearly full.
+  var pool = [];
+  hall.rows.forEach(function(row, ri){
+    row.seats.forEach(function(seat, si){
+      if (seatState(show, row.label, seat.n) !== "free") return;
+      pool.push({ id: row.label + seat.n, row: row.label, n: seat.n, kind: seat.kind,
+                  score: sightline(ri, nRows, si, row.count) });
+    });
+  });
+
+  if (!pool.length){ toast("This screening is sold out. Try another time."); return; }
+
+  pool.sort(function(a,b){ return b.score - a.score; });
+  var take = Math.min(S.party, pool.length);
+  S.seats = pool.slice(0, take);
+  S.types = {};
+  S.seats.forEach(function(s){ S.types[s.id] = "adult"; });
+  if (!S.holdEnds) startHold();
+
+  var rowsUsed = {};
+  S.seats.forEach(function(s){ rowsUsed[s.row] = 1; });
+  var nGroups = Object.keys(rowsUsed).length;
+
+  if (take < S.party){
+    toast("Only " + take + " seat" + (take>1?"s":"") + " left in this house, so that is what we held. Try another showing for all " + S.party + ".");
+  } else {
+    toast("No " + S.party + " together here — these are the best " + S.party + " available, across " + nGroups + " rows.");
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   11. RENDER + EVENTS
+   ════════════════════════════════════════════════════════════ */
+
+var VIEWS = {
+  home: viewHome, soon: viewSoon, film: viewFilm, seats: viewSeats,
+  addons: viewAddons, checkout: viewCheckout, confirm: viewConfirm,
+  pricing: viewPricing, theatre: viewTheatre, visit: viewVisit,
+  gift: viewGift, private: viewPrivate, faq: viewFaq, privacy: viewPrivacy
+};
+
+function render(){
+  renderChrome();
+  document.getElementById("app").innerHTML = (VIEWS[S.view] || viewHome)();
+  renderFoot();
+  if (S.holdEnds) tickHold();
+  if (S.view === "seats") centreHall();
+}
+
+/* On a narrow screen the hall is wider than the viewport. Open on the middle of
+   the auditorium rather than the left wall, and keep the selection in frame. */
+function centreHall(){
+  var hall = document.querySelector(".hall");
+  if (!hall) return;
+  var over = hall.scrollWidth - hall.clientWidth;
+  if (over <= 0) return;
+  var target = over / 2;
+  var picks = hall.querySelectorAll(".seat.pick");
+  if (picks.length){
+    var l = Infinity, r = -Infinity;
+    for (var i = 0; i < picks.length; i++){
+      l = Math.min(l, picks[i].offsetLeft);
+      r = Math.max(r, picks[i].offsetLeft + picks[i].offsetWidth);
+    }
+    target = Math.max(0, Math.min(over, (l + r) / 2 - hall.clientWidth / 2));
+  }
+  hall.scrollLeft = target;
+}
+
+/* ── one delegated click handler for the whole prototype ──── */
+document.addEventListener("click", function(e){
+
+  var burger = e.target.closest("#burger");
+  if (burger){ S.menuOpen = !S.menuOpen; renderChrome(); return; }
+
+  // mobile order sheet
+  var sheet = e.target.closest("[data-sheet]");
+  if (sheet){
+    e.preventDefault();
+    S.railOpen = sheet.getAttribute("data-sheet") === "toggle" ? !S.railOpen : false;
+    render();
+    return;
+  }
+
+  // showtime → seat selection
+  var showBtn = e.target.closest("[data-show]");
+  if (showBtn && !showBtn.disabled){
+    e.preventDefault();
+    var sid = showBtn.getAttribute("data-show");
+    var sh = getShow(sid);
+    S.seats = []; S.types = {}; S.addons = {}; S.deliver = false;
+    hallAnimated = false;
+    startHold();
+    go("seats", { showId: sid, filmId: sh.filmId, date: sh.date });
+    return;
+  }
+
+  // date chips
+  var dc = e.target.closest("[data-date]");
+  if (dc){
+    e.preventDefault();
+    var f = dc.getAttribute("data-film");
+    go(f ? "film" : S.view, f ? { date: dc.getAttribute("data-date"), filmId: f } : { date: dc.getAttribute("data-date") });
+    return;
+  }
+
+  // navigation
+  var nav = e.target.closest("[data-go]");
+  if (nav){
+    e.preventDefault();
+    var v = nav.getAttribute("data-go");
+    var film = nav.getAttribute("data-film");
+    go(v, film ? { filmId: film } : null);
+    return;
+  }
+
+  // party size
+  var party = e.target.closest("[data-party]");
+  if (party && !party.disabled){
+    var delta = +party.getAttribute("data-party");
+    S.party = Math.max(1, Math.min(8, S.party + delta));
+    if (S.seats.length > S.party){
+      S.seats = S.seats.slice(0, S.party);
+    } else if (S.seats.length && S.seats.length < S.party){
+      S.seats = []; S.types = {};
+      toast("Party size changed — pick your seats again.");
+    }
+    render();
+    return;
+  }
+
+  // seat
+  var seat = e.target.closest(".seat");
+  if (seat && !seat.disabled){
+    var id = seat.getAttribute("data-seat");
+    var already = S.seats.some(function(x){ return x.id === id; });
+    if (already){
+      S.seats = S.seats.filter(function(x){ return x.id !== id; });
+      delete S.types[id];
+    } else if (S.seats.length >= S.party){
+      pickAround(id.charAt(0), +id.slice(1));
+    } else {
+      var d = hallData(), hall = d.hall;
+      var rowLabel = id.charAt(0), n = +id.slice(1);
+      var ri = -1; for (var i=0;i<hall.rows.length;i++) if (hall.rows[i].label===rowLabel) ri=i;
+      var row = hall.rows[ri];
+      S.seats.push({ id:id, row:rowLabel, n:n, kind: seat.getAttribute("data-kind"),
+                     score: +seat.getAttribute("data-score") });
+      S.types[id] = "adult";
+      if (S.seats.length === 1 && S.party > 1) pickAround(rowLabel, n);
+    }
+    if (S.seats.length && !S.holdEnds) startHold();
+    render();
+    return;
+  }
+
+  if (e.target.closest("#autopick")){ autoPick(); render(); return; }
+  if (e.target.closest("#clearseats")){ S.seats = []; S.types = {}; render(); return; }
+
+  var drop = e.target.closest("[data-drop]");
+  if (drop){
+    var did = drop.getAttribute("data-drop");
+    S.seats = S.seats.filter(function(x){ return x.id !== did; });
+    delete S.types[did];
+    render(); return;
+  }
+
+  // concessions
+  var conc = e.target.closest("[data-conc]");
+  if (conc && !conc.disabled){
+    var cid = conc.getAttribute("data-conc"), cd = +conc.getAttribute("data-d");
+    S.addons[cid] = Math.max(0, Math.min(20, (S.addons[cid] || 0) + cd));
+    if (!Object.keys(S.addons).some(function(k){ return S.addons[k] > 0; })) S.deliver = false;
+    render(); return;
+  }
+  if (e.target.closest("#deliver")){
+    var any = Object.keys(S.addons).some(function(k){ return S.addons[k] > 0; });
+    if (any){ S.deliver = !S.deliver; render(); }
+    return;
+  }
+
+  // flow
+  if (e.target.closest("#toaddons")){ go("addons"); return; }
+  if (e.target.closest("#tocheckout")){ go("checkout"); return; }
+  if (e.target.closest("#pay") || e.target.closest("#applepay") || e.target.closest("#gpay")){
+    var T = orderTotals();
+    var emEl = document.getElementById("em");
+    var email = (emEl && emEl.value.trim()) || "you@example.com";
+    var num = "C6-" + String(Math.floor(rnd(S.showId + S.seats.map(function(s){return s.id;}).join("")) * 900000) + 100000);
+    S.order = {
+      number: num, filmId: S.filmId, showId: S.showId, seats: S.seats.slice(),
+      total: T.total, email: email, addonList: T.addonList, deliver: S.deliver,
+      pickup: "#" + (Math.floor(rnd(num) * 89) + 10)
+    };
+    stopHold();
+    go("confirm");
+    return;
+  }
+});
+
+/* ── ticket type selects ──────────────────────────────────── */
+document.addEventListener("change", function(e){
+  var sel = e.target.closest("[data-type]");
+  if (!sel) return;
+  S.types[sel.getAttribute("data-type")] = sel.value;
+  render();
+});
+
+/* ── seat tooltip ─────────────────────────────────────────── */
+var tip = document.getElementById("tip");
+document.addEventListener("mouseover", function(e){
+  var seat = e.target.closest(".seat");
+  if (!seat){ tip.classList.remove("show"); return; }
+  var id = seat.getAttribute("data-seat");
+  var score = +seat.getAttribute("data-score");
+  var label = seat.getAttribute("data-label");
+  var sold = seat.getAttribute("data-state") === "sold";
+  var quality = score >= 82 ? "Prime sightline" : score >= 70 ? "Very good view" : score >= 55 ? "Good view" : "Close to the screen";
+  tip.innerHTML = '<div class="tt">Row ' + id.charAt(0) + ' · Seat ' + id.slice(1) + '</div>'
+    + '<div class="tb">' + label + (sold ? ' · taken' : ' · ' + quality) + '</div>';
+  var r = seat.getBoundingClientRect();
+  tip.style.left = (r.left + r.width/2) + "px";
+  tip.style.top = r.top + "px";
+  tip.classList.add("show");
+});
+document.addEventListener("mouseout", function(e){
+  if (e.target.closest(".seat")) tip.classList.remove("show");
+});
+window.addEventListener("scroll", function(){ tip.classList.remove("show"); }, { passive: true });
+
+/* ── keyboard: escape leaves the booking flow ─────────────── */
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && (S.view === "seats" || S.view === "addons" || S.view === "checkout")){
+    go("film", { filmId: S.filmId });
+  }
+});
+
+render();
+</script>
