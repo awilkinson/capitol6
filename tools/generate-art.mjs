@@ -36,7 +36,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const OUT = join(ROOT, "assets");
+const OUT = join(ROOT, "assets", "generated");
 const HTML = join(ROOT, "index.html");
 
 const argv = new Set(process.argv.slice(2));
@@ -222,29 +222,8 @@ if (WANT.posters || WANT.art) {
   });
 }
 
-/* Inject ahead of the page's own script, which reads these two globals. */
-const OPEN = "<!-- C6-ART:START -->";
-const CLOSE = "<!-- C6-ART:END -->";
-let html = readFileSync(HTML, "utf8");
-
-const existing = html.match(new RegExp(`${OPEN}[\\s\\S]*?${CLOSE}\\n?`));
-if (existing) html = html.replace(existing[0], "");
-
-const keep = (obj, prev) => (Object.keys(obj).length ? obj : prev);
-const block = `${OPEN}
-<script>
-window.C6_LOGO = ${logo ? JSON.stringify(logo) : "window.C6_LOGO || null"};
-window.C6_POSTERS = Object.assign(window.C6_POSTERS || {}, ${JSON.stringify(posters)});
-</script>
-${CLOSE}
-`;
-
-const anchor = "<script>\n\"use strict\";";
-if (!html.includes(anchor)) { console.error("Could not find the main script tag in index.html."); process.exit(1); }
-html = html.replace(anchor, block + anchor);
-writeFileSync(HTML, html);
-
-const kb = Math.round(Buffer.byteLength(block) / 1024);
-console.log(`\nInjected ${Object.keys(posters).length} poster(s)${logo ? " and the logo" : ""} into index.html (${kb} KB).`);
-console.log("Republish with:  claude  →  \"republish the capitol6 artifact\"");
-if (kb > 12000) console.log("WARNING: over 12MB. The published page is capped at 16MB — re-run with smaller sizes.");
+/* Injection now lives in tools/inject-art.mjs, which packs assets/logo.png,
+   assets/posters/*.jpg and assets/backdrops/*.jpg into index.html together.
+   This tool only writes files into assets/. */
+if (logo) console.log("\nLogo saved. Clean it up (crop, flatten the colour), drop it at assets/logo.png, then run:  node tools/inject-art.mjs");
+if (Object.keys(posters).length) console.log("\nPosters saved to assets/. Move the ones you want into assets/posters/<id>.jpg, then run:  node tools/inject-art.mjs");
