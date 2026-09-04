@@ -23,7 +23,8 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Capitol 6 Theatres — six screens, 502 power recliners, 805 Yates Street, Victoria BC.">
+<meta name="description" content="A concept redesign prototype for Capitol 6 Theatres, Victoria BC. Unaffiliated with the cinema; no tickets are sold here.">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0B0A09">
 <style>
   :root{ color-scheme: dark; }
@@ -40,4 +41,8 @@ ${body}
 
 mkdirSync(join(ROOT, "dist"), { recursive: true });
 writeFileSync(join(ROOT, "dist", "index.html"), html);
+
+// A concept redesign carrying a real cinema's name must never be indexed as
+// though it were the real Capitol 6.
+writeFileSync(join(ROOT, "dist", "robots.txt"), "User-agent: *\nDisallow: /\n");
 console.log(`dist/index.html — ${(Buffer.byteLength(html) / 1024).toFixed(0)} KB`);
